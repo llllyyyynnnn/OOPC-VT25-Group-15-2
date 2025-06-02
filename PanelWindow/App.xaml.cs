@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace OOPC_VT25_Group_15_2
+namespace PanelWindow
 {
     /// <summary>
     /// Interaction logic for App.xaml

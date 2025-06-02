@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OOPC_VT25_Group_15_2
+namespace DataManagement
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
