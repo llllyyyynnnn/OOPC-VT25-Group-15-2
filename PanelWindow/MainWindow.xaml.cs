@@ -20,5 +20,20 @@ namespace PanelWindow
         {
             InitializeComponent();
         }
+
+        private void LogIn_Click_1(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(emailTextBox.Text);
+            
+        }
+
+        private void NoAccount_MouseDown(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Label clicked!");
+        }
+        private void ForgotPassword_MouseDown(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Label clicked!");
+        }
     }
 }

@@ -33,8 +33,9 @@ namespace DataManager
         public class Session : Entity
         {
             public required string name { get; set; }
-            public required DateTime startTime, endTime;
-            public required string Location { get; set; }
+            public required DateTime startTime { get; set; }
+            public required DateTime endTime { get; set; }
+            public required string location { get; set; }
             public required Member member { get; set; }
             public required Coach coach { get; set; }
         }
@@ -56,7 +57,8 @@ namespace DataManager
         {
             public required Gear gear { get; set; }
             public required Member loanOwner { get; set; }
-            public required DateOnly loanDate, returnDate;
+            public required DateTime loanDate { get; set; }
+            public required DateTime returnDate { get; set; }
         }
     }
 }
