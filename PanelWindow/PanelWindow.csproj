@@ -8,4 +8,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataManager\DataManager.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,7 +6,7 @@ namespace DataManager
 {
     public class Entity
     {
-        [Key] public required int id { get; set; }
+        [Key] public int id { get; set; }
     }
 
     public class Entities

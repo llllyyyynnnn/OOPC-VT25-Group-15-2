@@ -11,15 +11,15 @@ namespace DataManager
     {
         public interface IUnitOfWork : IDisposable
         {
-
+            Repositories.Members Members { get; }
+            int Complete();
         }
-        public interface IRepository<T> where T : class
+        public interface IRepository<T> where T : class // not having global definitions is good since we can now have specific validations, etc for each entity in each respective repo
         {
             T GetById(int id);
             IEnumerable<T> GetAll();
-            IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
             void Add(T entity);
-            void Update(T entity);
+            void Update(T entity, Action<T> changes);
             void Delete(T entity);
         }
     }

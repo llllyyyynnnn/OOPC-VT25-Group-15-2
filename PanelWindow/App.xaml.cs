@@ -9,6 +9,16 @@ namespace PanelWindow
     /// </summary>
     public partial class App : Application
     {
+        /*
+                 protected override void OnStartup(StartupEventArgs e)
+                {
+                    base.OnStartup(e);
+
+                    var controller = new DataManager.Controllers.Members();
+                    var mainWindow = new MainWindow(controller);
+                    mainWindow.Show();
+                }
+         */
     }
 
 }

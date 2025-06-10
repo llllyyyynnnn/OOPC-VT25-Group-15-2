@@ -8,23 +8,45 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DataManager;
 
 namespace PanelWindow
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly DataManager.Controllers.Members _controller;
+        private readonly DataManager.Context _ctx;
+        private readonly DataManager.UnitOfWork _uow;
+
+
+        /*
+         public MainWindow(DataManager.Controllers.Members controller)
+        {
+            InitializeComponent();
+            _controller = controller;
+        }
+         */
+
         public MainWindow()
         {
             InitializeComponent();
+
+            _ctx = new Context();
+            _uow = new UnitOfWork(_ctx);
+            _controller = new DataManager.Controllers.Members(_uow);
         }
 
         private void LogIn_Click_1(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(emailTextBox.Text);
-            
+            DataManager.Entities.Member member = new DataManager.Entities.Member
+            {
+                fullName = "",
+                birthDate = DateOnly.FromDayNumber(100),
+                phoneNumber = "123456789",
+                mailAddress = emailTextBox.Text
+            };
+
+            _controller.Register(member);
         }
 
         private void NoAccount_MouseDown(object sender, RoutedEventArgs e)
