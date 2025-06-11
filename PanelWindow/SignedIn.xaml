@@ -41,7 +41,19 @@
                             <Button x:Name="removeGearLoanButton" Content="Remove loan" Click="removeGearLoanButton_Click"/>
                             <Button x:Name="refreshGearLoansButton" Content="Refresh" Click="refreshGearLoansButton_Click"/>
                         </StackPanel>
-                        <DataGrid x:Name="gearLoansList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column"/>
+                        <DataGrid x:Name="gearLoansList"
+          AutoGenerateColumns="False"
+          SelectionMode="Single"
+          IsReadOnly="True"
+          HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding id}" />
+                                <DataGridTextColumn Header="Loan Owner" Binding="{Binding loanOwner.id}" />
+                                <DataGridTextColumn Header="Gear Name" Binding="{Binding gear.name}" />
+                                <DataGridTextColumn Header="Loan Date" Binding="{Binding loanDate, StringFormat=d}" />
+                                <DataGridTextColumn Header="Return Date" Binding="{Binding returnDate, StringFormat=d}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </DockPanel>
                 </TabItem>
                 <TabItem Header="Sessions">

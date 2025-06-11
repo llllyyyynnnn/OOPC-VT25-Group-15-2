@@ -26,20 +26,14 @@ namespace DataManager
         {
             base.OnModelCreating(modelBuilder);
 
-            // Gear Loan must have a reference to specific gear. It must also have one owner, and one owner can have multiple loans.
-            /*
-                         modelBuilder.Entity<GearLoan>()
-                        .HasOne(gl => gl.gear)
-                        .WithOne()
-                        .HasForeignKey<GearLoan>(gl => gl.gear.id)
-                        .IsRequired();
+            // A session must have a coach, but it does not need to have one or more members. A coach can have multiple sessions.
+            modelBuilder.Entity<Entities.Session>().HasOne<Entities.Coach>().WithMany().OnDelete(DeleteBehavior.Cascade);
 
-                        modelBuilder.Entity<GearLoan>()
-                        .HasOne(gl => gl.loanOwner)
-                        .WithMany()
-                        .HasForeignKey(gl => gl.gear.id)
-                        .IsRequired();
-             */
+            // A gear loan must have a gear, but a gear does not need a loan. A gear can only be connected to one loan at a time.
+            modelBuilder.Entity<Entities.GearLoan>().HasOne(gl => gl.gear).WithMany().OnDelete(DeleteBehavior.Cascade);
+
+            // A gear loan can only be connected to one member, who can have many loans
+            modelBuilder.Entity<Entities.GearLoan>().HasOne(gl => gl.loanOwner).WithMany().OnDelete(DeleteBehavior.Cascade);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ApplicationDBSample;Trusted_Connection=True;");

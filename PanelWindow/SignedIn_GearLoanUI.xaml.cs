@@ -40,7 +40,7 @@ namespace PanelWindow
             _gear = gear;
 
             membersList = (List<Member>)_membersController.GetMembers();
-            gearLoansMembersList.ItemsSource = membersList.Select(member => new { memberId = member.id, memberInformation = $"{member.firstName} {member.lastName}: Not in this session" }).ToList();
+            gearLoansMembersList.ItemsSource = membersList.Select(member => new { memberId = member.id, memberInformation = $"{member.firstName} {member.lastName}" }).ToList();
 
             if (_gearLoan != null)
             {
