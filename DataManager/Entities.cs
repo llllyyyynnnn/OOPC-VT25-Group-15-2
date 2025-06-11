@@ -40,6 +40,7 @@ namespace DataManager
             [Required] public required TimeOnly time { get; set; }
             [Required][MaxLength(64)] public required string location { get; set; }
             [Required] public required int coachId { get; set; }
+            public List<Entities.Member> members { get; set; }
         }
 
         public class Gear

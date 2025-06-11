@@ -86,12 +86,6 @@ namespace PanelWindow
             this.Close();
         }
 
-        private void removeGearLoanButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-       
         private void addGearButton_Click(object sender, RoutedEventArgs e)
         {
             SignedIn_GearUI gearUI = new SignedIn_GearUI(_gearController);
@@ -129,10 +123,6 @@ namespace PanelWindow
                 RefreshSessionList();
             }
         }
-        private void assignSessionButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void removeSessionButton_Click(object sender, RoutedEventArgs e)
         {
             if (sessionsList.SelectedItem != null && sessionsList.SelectedItem is Entities.Session session)
@@ -146,6 +136,11 @@ namespace PanelWindow
         }
 
         private void loanGearButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void removeGearLoanButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

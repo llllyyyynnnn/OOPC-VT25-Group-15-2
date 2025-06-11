@@ -157,7 +157,7 @@ namespace DataManager
                 public void Delete(Entities.Member entity) => _uow.Members.Delete(entity);
                 public void Update(Member entity, Action<Member> changes) => _uow.Members.Update(entity, changes);
                 public IEnumerable<Member> GetMembers() => _uow.Members.GetAll();
-
+                public Member GetMemberById(int id) => _uow.Members.GetById(id);
                 public int Complete() => _uow.Complete();
             }
 
@@ -222,6 +222,7 @@ namespace DataManager
                     _uow.Sessions.Add(entity);
                 }
                 public IEnumerable<Session> GetSessions() => _uow.Sessions.GetAll();
+                public IEnumerable<Member> GetMembers(int id) => _uow.Sessions.GetById(id).members;
                 public int Complete() => _uow.Complete();
             }
         }

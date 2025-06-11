@@ -188,6 +188,7 @@ namespace PanelWindow
                         entity.time = sessionModifiedData.time;
                         entity.location = sessionModifiedData.location;
                         entity.participants = sessionModifiedData.participants;
+                        entity.members = sessionModifiedData.members;
                     });
 
                     controller.Complete();

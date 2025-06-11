@@ -47,6 +47,26 @@ namespace DataManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sessions",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    activity = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    description = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    caloriesBurnt = table.Column<int>(type: "int", nullable: false),
+                    participants = table.Column<int>(type: "int", nullable: false),
+                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    time = table.Column<TimeOnly>(type: "time", nullable: false),
+                    location = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    coachId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sessions", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Members",
                 columns: table => new
                 {
@@ -57,11 +77,17 @@ namespace DataManager.Migrations
                     mailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     phoneNumber = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: false),
                     birthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    pinCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    pinCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Sessionid = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Members", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Members_Sessions_Sessionid",
+                        column: x => x.Sessionid,
+                        principalTable: "Sessions",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -92,39 +118,6 @@ namespace DataManager.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Sessions",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    activity = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    description = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    caloriesBurnt = table.Column<int>(type: "int", nullable: false),
-                    participants = table.Column<int>(type: "int", nullable: false),
-                    time = table.Column<TimeOnly>(type: "time", nullable: false),
-                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    location = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    memberid = table.Column<int>(type: "int", nullable: false),
-                    coachid = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sessions", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Sessions_Coaches_coachid",
-                        column: x => x.coachid,
-                        principalTable: "Coaches",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Sessions_Members_memberid",
-                        column: x => x.memberid,
-                        principalTable: "Members",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_GearLoans_gearid",
                 table: "GearLoans",
@@ -136,33 +129,28 @@ namespace DataManager.Migrations
                 column: "loanOwnerid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sessions_coachid",
-                table: "Sessions",
-                column: "coachid");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sessions_memberid",
-                table: "Sessions",
-                column: "memberid");
+                name: "IX_Members_Sessionid",
+                table: "Members",
+                column: "Sessionid");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GearLoans");
+                name: "Coaches");
 
             migrationBuilder.DropTable(
-                name: "Sessions");
+                name: "GearLoans");
 
             migrationBuilder.DropTable(
                 name: "Gears");
 
             migrationBuilder.DropTable(
-                name: "Coaches");
+                name: "Members");
 
             migrationBuilder.DropTable(
-                name: "Members");
+                name: "Sessions");
         }
     }
 }

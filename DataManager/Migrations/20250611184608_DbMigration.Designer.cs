@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataManager.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250611180028_DbMigration")]
+    [Migration("20250611184608_DbMigration")]
     partial class DbMigration
     {
         /// <inheritdoc />
@@ -137,6 +137,9 @@ namespace DataManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("Sessionid")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("birthDate")
                         .HasColumnType("datetime2");
 
@@ -167,6 +170,8 @@ namespace DataManager.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("Sessionid");
+
                     b.ToTable("Members");
                 });
 
@@ -186,7 +191,7 @@ namespace DataManager.Migrations
                     b.Property<int>("caloriesBurnt")
                         .HasColumnType("int");
 
-                    b.Property<int>("coachid")
+                    b.Property<int>("coachId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("date")
@@ -202,9 +207,6 @@ namespace DataManager.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<int>("memberid")
-                        .HasColumnType("int");
-
                     b.Property<int>("participants")
                         .HasColumnType("int");
 
@@ -212,10 +214,6 @@ namespace DataManager.Migrations
                         .HasColumnType("time");
 
                     b.HasKey("id");
-
-                    b.HasIndex("coachid");
-
-                    b.HasIndex("memberid");
 
                     b.ToTable("Sessions");
                 });
@@ -239,23 +237,16 @@ namespace DataManager.Migrations
                     b.Navigation("loanOwner");
                 });
 
+            modelBuilder.Entity("DataManager.Entities+Member", b =>
+                {
+                    b.HasOne("DataManager.Entities+Session", null)
+                        .WithMany("members")
+                        .HasForeignKey("Sessionid");
+                });
+
             modelBuilder.Entity("DataManager.Entities+Session", b =>
                 {
-                    b.HasOne("DataManager.Entities+Coach", "coach")
-                        .WithMany()
-                        .HasForeignKey("coachid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataManager.Entities+Member", "member")
-                        .WithMany()
-                        .HasForeignKey("memberid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("coach");
-
-                    b.Navigation("member");
+                    b.Navigation("members");
                 });
 #pragma warning restore 612, 618
         }

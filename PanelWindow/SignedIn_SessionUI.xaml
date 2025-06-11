@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PanelWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600" Style="{DynamicResource MainWindowStyle}">
-    
+        Title="MainWindow" Height="650" Width="800" Style="{DynamicResource MainWindowStyle}">
+
     <Grid Style="{StaticResource MainGridLayout}" HorizontalAlignment="Stretch" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -22,9 +22,17 @@
             <TextBox x:Name="sessionLocation" Text="Location"/>
             <TextBox x:Name="sessionParticipants" Text="Participants"/>
             <TextBox x:Name="sessionTime" Text="Time (HH:mm)"/>
-            <ComboBox x:Name="sessionCoach" DisplayMemberPath="coachInformation" SelectedValuePath="coachId" Height="Auto" Margin="10"/>
             <DatePicker x:Name="sessionDate" Height="30"/>
-            <Button Content="Confirm" Click="Confirm_Click"/>
+            <ComboBox x:Name="sessionCoach" DisplayMemberPath="coachInformation" SelectedValuePath="coachId" Height="Auto" Margin="10"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="10">
+                <ComboBox x:Name="sessionMembersList" DisplayMemberPath="memberInformation" SelectedValuePath="memberId" Height="Auto" Width="240"/>
+                <ComboBox x:Name="sessionCurrentMembersList" DisplayMemberPath="memberInformation" SelectedValuePath="memberId" Height="Auto" Width="240"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto">
+                <Button Content="Save" Click="Confirm_Click"/>
+                <Button Content="Add member" Click="addMember_Click"/>
+                <Button Content="Remove member" Click="removeMember_Click"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

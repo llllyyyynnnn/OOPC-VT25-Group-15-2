@@ -27,6 +27,33 @@ namespace PanelWindow
         private bool _modifyingSession = false;
         private readonly DataManager.Entities.Session _session;
 
+        private List<Member> membersInSession = new List<Member>();
+        private List<Member> membersNotInSession = new List<Member>();
+
+        private void RefreshLists()
+        {
+            sessionCurrentMembersList.ItemsSource = membersInSession.Select(member => new { memberId = member.id, memberInformation = $"{member.firstName} {member.lastName}: In this session" }).ToList();
+            sessionCoach.ItemsSource = _coachesController.GetCoaches().Select(coach => new { coachId = coach.id, coachInformation = $"{coach.firstName} {coach.lastName}: {coach.specialisation}" }).ToList();
+            sessionMembersList.ItemsSource = membersNotInSession.Select(member => new { memberId = member.id, memberInformation = $"{member.firstName} {member.lastName}: Not in this session" }).ToList();
+        }
+
+        private void SyncMemberListsToSession(int id)
+        {
+
+            membersInSession = _sessionsController.GetMembers(id).ToList();
+
+            sessionCurrentMembersList.ItemsSource = membersInSession
+                .Select(member => new {
+                    memberId = member.id,
+                    memberInformation = $"{member.firstName} {member.lastName}: In this session"
+                }).ToList();
+
+            HashSet<int> sessionMemberIds = membersInSession.Select(m => m.id).ToHashSet();
+            membersNotInSession.RemoveAll(member => sessionMemberIds.Contains(member.id));
+
+            RefreshLists();
+        }
+
         public SignedIn_SessionUI(DataManager.Handlers.Controllers.Sessions sessionsController, DataManager.Handlers.Controllers.Coaches coachesController, DataManager.Handlers.Controllers.Members membersController, DataManager.Entities.Session session = null)
         {
             InitializeComponent();
@@ -34,7 +61,9 @@ namespace PanelWindow
             _coachesController = coachesController;
             _membersController = membersController;
 
-            sessionCoach.ItemsSource = _coachesController.GetCoaches().Select(coach => new{coachId = coach.id, coachInformation = $"{coach.firstName} {coach.lastName}: {coach.specialisation}" }).ToList();
+            membersNotInSession = (List<Member>)_membersController.GetMembers();
+            RefreshLists();
+
             if (session != null)
             {
                 _session = session;
@@ -48,6 +77,8 @@ namespace PanelWindow
                 sessionTime.Text = session.time.ToString("HH:mm");
                 sessionLocation.Text = session.location;
                 sessionParticipants.Text = session.participants.ToString();
+
+                SyncMemberListsToSession(session.id);
 
                 _modifyingSession = true;
             }
@@ -68,7 +99,8 @@ namespace PanelWindow
                     time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
                     location = sessionLocation.Text,
                     participants = Int32.Parse(sessionParticipants.Text),
-                    date = sessionDate.SelectedDate.Value
+                    date = sessionDate.SelectedDate.Value,
+                    members = membersInSession
                 });
             }
             else
@@ -82,11 +114,33 @@ namespace PanelWindow
                     time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
                     location = sessionLocation.Text,
                     participants = Int32.Parse(sessionParticipants.Text),
-                    date = sessionDate.SelectedDate.Value
+                    date = sessionDate.SelectedDate.Value,
+                    members = membersInSession
                 });
             }
 
             this.Close();
+        }
+
+        private void addMember_Click(object sender, RoutedEventArgs e)
+        {
+            Member member = _membersController.GetMemberById((int)sessionMembersList.SelectedValue);
+
+            membersInSession.Add(member);
+            membersNotInSession.Remove(member);
+
+            
+            RefreshLists();
+        }
+
+        private void removeMember_Click(object sender, RoutedEventArgs e)
+        {
+            Member member = _membersController.GetMemberById((int)sessionCurrentMembersList.SelectedValue);
+
+            membersInSession.Remove(member);
+            membersNotInSession.Add(member);
+
+            RefreshLists();
         }
     }
 }

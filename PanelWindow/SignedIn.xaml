@@ -48,7 +48,6 @@
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
                             <Button x:Name="modifySessionButton" Content="Modify" Click="modifySessionButton_Click"/>
-                            <Button x:Name="assignSessionButton" Content="Assign" Click="assignSessionButton_Click"/>
                             <Button x:Name="removeSessionButton" Content="Remove" Click="removeSessionButton_Click"/>
                             <Button x:Name="addSessionButton" Content="Add" Click="addSessionButton_Click"/>
                             <Button x:Name="refreshSessionsButton" Content="Refresh" Click="refreshSessionsButton_Click"/>
