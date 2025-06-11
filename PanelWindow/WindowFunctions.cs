@@ -260,6 +260,9 @@ namespace PanelWindow
             {
                 try
                 {
+                    if (sessionModifiedData.members.Count > sessionModifiedData.participants)
+                        throw new Exception("Too many members");
+
                     controller.Update(session, entity =>
                     {
                         entity.activity = sessionModifiedData.activity;
@@ -287,6 +290,9 @@ namespace PanelWindow
             {
                 try
                 {
+                    if (sessionData.members.Count > sessionData.participants)
+                        throw new Exception("Too many members");
+
                     controller.Register(sessionData);
                     controller.Complete();
                     MessageBox.Show("Successfully created new session");

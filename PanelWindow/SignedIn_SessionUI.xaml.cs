@@ -135,12 +135,16 @@ namespace PanelWindow
 
         private void removeMember_Click(object sender, RoutedEventArgs e)
         {
-            Member member = _membersController.GetMemberById((int)sessionCurrentMembersList.SelectedValue);
+            try
+            {
+                Member member = _membersController.GetMemberById((int)sessionCurrentMembersList.SelectedValue);
 
-            membersInSession.Remove(member);
-            membersNotInSession.Add(member);
+                membersInSession.Remove(member);
+                membersNotInSession.Add(member);
 
-            RefreshLists();
+                RefreshLists();
+            }
+            catch (Exception ex) { }
         }
     }
 }
