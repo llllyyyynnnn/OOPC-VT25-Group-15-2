@@ -17,16 +17,14 @@ using static DataManager.Handlers;
 
 namespace PanelWindow
 {
-    /// <summary>
-    /// Interaction logic for SignedIn.xaml
-    /// </summary>
     public partial class SignedIn : Window
     {
         private readonly DataManager.Handlers.Controllers.Members _memberController;
         private readonly DataManager.Handlers.Controllers.Gears _gearController;
+        private readonly DataManager.Handlers.Controllers.GearLoans _gearLoansController;
+
         private readonly DataManager.Handlers.Controllers.Sessions _sessionsController;
         private readonly DataManager.Handlers.Controllers.Coaches _coachesController;
-
 
         public SignedIn()
         {
@@ -35,20 +33,24 @@ namespace PanelWindow
 
             _memberController = new DataManager.Handlers.Controllers.Members(Storage.uow);
             _gearController = new DataManager.Handlers.Controllers.Gears(Storage.uow);
+            _gearLoansController = new DataManager.Handlers.Controllers.GearLoans(Storage.uow);
             _sessionsController = new DataManager.Handlers.Controllers.Sessions(Storage.uow);
             _coachesController = new DataManager.Handlers.Controllers.Coaches(Storage.uow);
 
             RefreshMembersList();
             RefreshGearList();
+            RefreshGearLoansList();
             RefreshSessionList();
         }
 
         private void RefreshMembersList() => membersList.ItemsSource = _memberController.GetMembers();
         private void RefreshGearList() => gearList.ItemsSource = _gearController.GetGear();
+        private void RefreshGearLoansList() => gearLoansList.ItemsSource = _gearLoansController.GetGearLoans();
         private void RefreshSessionList() => sessionsList.ItemsSource = _sessionsController.GetSessions();
 
         private void refreshSessionsButton_Click(object sender, RoutedEventArgs e) => RefreshSessionList();
         private void refreshGearButton_Click(object sender, RoutedEventArgs e) => RefreshGearList();
+        private void refreshGearLoansButton_Click(object sender, RoutedEventArgs e) => RefreshGearLoansList();
         private void refreshMembersButton_Click(object sender, RoutedEventArgs e) => RefreshMembersList();
 
         private void addMemberButton_Click(object sender, RoutedEventArgs e)
@@ -130,14 +132,14 @@ namespace PanelWindow
                     RefreshSessionList();
         }
 
-        private void refreshGearLoansButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void loanGearButton_Click(object sender, RoutedEventArgs e)
         {
+            if (gearList.SelectedItem != null && gearList.SelectedItem is Entities.Gear gear)
+            {
+                SignedIn_GearLoanUI gearLoanUI = new SignedIn_GearLoanUI(_gearLoansController, _memberController, _gearController, gear);
+                gearLoanUI.ShowDialog();
 
+            }
         }
 
         private void removeGearLoanButton_Click(object sender, RoutedEventArgs e)

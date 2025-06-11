@@ -172,6 +172,71 @@ namespace PanelWindow
             }
         }
 
+        public static class GearLoansUI
+        {
+            public static bool Modify(DataManager.Handlers.Controllers.GearLoans gearLoanController, DataManager.Entities.GearLoan gearLoan, DataManager.Entities.GearLoan gearLoanModifiedData)
+            {
+                try
+                {
+                    gearLoanController.Update(gearLoan, entity =>
+                    {
+                        entity.gear = gearLoanModifiedData.gear;
+                        entity.returnDate = gearLoanModifiedData.returnDate;
+                        entity.loanDate = gearLoanModifiedData.loanDate;
+                        entity.loanOwner = gearLoanModifiedData.loanOwner;
+                    });
+
+                    gearLoanController.Complete();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+            }
+
+            public static bool Register(DataManager.Handlers.Controllers.GearLoans controller, DataManager.Entities.GearLoan gearData)
+            {
+                try
+                {
+                    if (!gearData.gear.available)
+                        throw new Exception("Gear is not available.");
+
+                    controller.Register(gearData);
+                    controller.Complete();
+                    MessageBox.Show("Successfully created new member");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+            }
+
+            public static bool Delete(DataManager.Handlers.Controllers.GearLoans controller, DataManager.Entities.GearLoan gearLoan)
+            {
+                try
+                {
+                    MessageBoxResult res = MessageBox.Show($"Your request to delete {gearLoan.gear.name} for {gearLoan.loanOwner.firstName} {gearLoan.loanOwner.lastName} with id {gearLoan.id} is irreversible. Are you sure you want to continue?", "Warning", MessageBoxButton.YesNo);
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        controller.Delete(gearLoan);
+                        controller.Complete();
+
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+            }
+        }
+
         public static class SessionUI
         {
             public static bool Modify(DataManager.Handlers.Controllers.Sessions controller, DataManager.Entities.Session session, DataManager.Entities.Session sessionModifiedData)
@@ -238,9 +303,5 @@ namespace PanelWindow
                 }
             }
         }
-        public static class DataUI
-            {
-
-            }
-        }
     }
+}

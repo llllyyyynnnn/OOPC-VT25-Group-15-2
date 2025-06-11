@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="SignedIn_GearLoanUI.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="SignedIn_SessionUI.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -155,9 +155,9 @@ namespace DataManager
                 }
 
                 public void Delete(Entities.Member entity) => _uow.Members.Delete(entity);
-                public void Update(Member entity, Action<Member> changes) => _uow.Members.Update(entity, changes);
-                public IEnumerable<Member> GetMembers() => _uow.Members.GetAll();
-                public Member GetMemberById(int id) => _uow.Members.GetById(id);
+                public void Update(Entities.Member entity, Action<Entities.Member> changes) => _uow.Members.Update(entity, changes);
+                public IEnumerable<Entities.Member> GetMembers() => _uow.Members.GetAll();
+                public Entities.Member GetMemberById(int id) => _uow.Members.GetById(id);
                 public int Complete() => _uow.Complete();
             }
 
@@ -176,10 +176,10 @@ namespace DataManager
 
                     _uow.Coaches.Add(entity);
                 }
-                public IEnumerable<Coach> GetCoaches() => _uow.Coaches.GetAll();
-                public Coach GetCoachById(int id) => _uow.Coaches.GetById(id);
+                public IEnumerable<Entities.Coach> GetCoaches() => _uow.Coaches.GetAll();
+                public Entities.Coach GetCoachById(int id) => _uow.Coaches.GetById(id);
 
-                public Coach Login(string email, string password) => _uow.Coaches.Login(email, password);
+                public Entities.Coach Login(string email, string password) => _uow.Coaches.Login(email, password);
 
                 public int Complete() => _uow.Complete();
             }
@@ -194,14 +194,35 @@ namespace DataManager
                 }
 
                 public void Delete(Entities.Gear entity) => _uow.Gears.Delete(entity);
-                public void Update(Gear entity, Action<Gear> changes) => _uow.Gears.Update(entity, changes);
+                public void Update(Entities.Gear entity, Action<Gear> changes) => _uow.Gears.Update(entity, changes);
                 public void Register(Entities.Gear entity)
                 {
                     if (entity == null) throw new ArgumentNullException(nameof(entity));
 
                     _uow.Gears.Add(entity);
                 }
-                public IEnumerable<Gear> GetGear() => _uow.Gears.GetAll();
+                public IEnumerable<Entities.Gear> GetGear() => _uow.Gears.GetAll();
+                public int Complete() => _uow.Complete();
+            }
+
+            public class GearLoans
+            {
+                private readonly IUnitOfWork _uow;
+
+                public GearLoans(IUnitOfWork UnitOfWork)
+                {
+                    _uow = UnitOfWork;
+                }
+
+                public void Delete(Entities.GearLoan entity) => _uow.GearLoans.Delete(entity);
+                public void Update(Entities.GearLoan entity, Action<GearLoan> changes) => _uow.GearLoans.Update(entity, changes);
+                public void Register(Entities.GearLoan entity)
+                {
+                    if (entity == null) throw new ArgumentNullException(nameof(entity));
+
+                    _uow.GearLoans.Add(entity);
+                }
+                public IEnumerable<Entities.GearLoan> GetGearLoans() => _uow.GearLoans.GetAll();
                 public int Complete() => _uow.Complete();
             }
             public class Sessions
@@ -214,15 +235,15 @@ namespace DataManager
                 }
 
                 public void Delete(Entities.Session entity) => _uow.Sessions.Delete(entity);
-                public void Update(Session entity, Action<Session> changes) => _uow.Sessions.Update(entity, changes);
+                public void Update(Entities.Session entity, Action<Entities.Session> changes) => _uow.Sessions.Update(entity, changes);
                 public void Register(Entities.Session entity)
                 {
                     if (entity == null) throw new ArgumentNullException(nameof(entity));
 
                     _uow.Sessions.Add(entity);
                 }
-                public IEnumerable<Session> GetSessions() => _uow.Sessions.GetAll();
-                public IEnumerable<Member> GetMembers(int id) => _uow.Sessions.GetById(id).members;
+                public IEnumerable<Entities.Session> GetSessions() => _uow.Sessions.GetAll();
+                public IEnumerable<Entities.Member> GetMembers(int id) => _uow.Sessions.GetById(id).members;
                 public int Complete() => _uow.Complete();
             }
         }

@@ -97,6 +97,16 @@
                 Value="Stretch"/>
     </Style>
 
+    
+    <Style TargetType="CheckBox">
+<Setter Property="Foreground"
+                Value="{StaticResource ForegroundBrush}"/>
+        <Setter Property="Margin"
+                Value="{DynamicResource MarginNormal}"/>
+        <Setter Property="VerticalAlignment"
+                Value="Stretch"/>
+    </Style>
+
     <LinearGradientBrush x:Key="MainBackgroundBrush"
                          EndPoint="0.5,1"
                          StartPoint="0.5,0">
