@@ -71,7 +71,7 @@ namespace PanelWindow
             }
             else
             {
-                WindowFunctions.GearLoansUI.Register(_gearLoanController, new Entities.GearLoan
+                WindowFunctions.GearLoansUI.Register(_gearLoanController, _gearController, new Entities.GearLoan
                 {
                     gear = _gear,
                     loanOwner = _membersController.GetMemberById((int)gearLoansMembersList.SelectedValue),

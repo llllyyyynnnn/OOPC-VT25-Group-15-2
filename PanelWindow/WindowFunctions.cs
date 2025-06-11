@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using static DataManager.Handlers;
 using System.Windows;
 using static DataManager.Entities;
+using DataManager;
 
 namespace PanelWindow
 {
@@ -196,15 +197,24 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Register(DataManager.Handlers.Controllers.GearLoans controller, DataManager.Entities.GearLoan gearData)
+            public static bool Register(DataManager.Handlers.Controllers.GearLoans gearLoanController, DataManager.Handlers.Controllers.Gears gearController, DataManager.Entities.GearLoan gearData)
             {
                 try
                 {
                     if (!gearData.gear.available)
                         throw new Exception("Gear is not available.");
 
-                    controller.Register(gearData);
-                    controller.Complete();
+                    gearController.Update(gearData.gear, entity =>
+                    {
+                        entity.name = entity.name;
+                        entity.condition = entity.condition;
+                        entity.available = false;
+                        entity.condition = entity.condition;
+                    });
+
+                    gearLoanController.Register(gearData);
+                    gearLoanController.Complete();
+                    gearController.Complete();
                     MessageBox.Show("Successfully created new member");
                     return true;
                 }
@@ -215,15 +225,22 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Delete(DataManager.Handlers.Controllers.GearLoans controller, DataManager.Entities.GearLoan gearLoan)
+            public static bool Delete(DataManager.Handlers.Controllers.GearLoans gearLoanController, DataManager.Handlers.Controllers.Gears gearController, DataManager.Entities.GearLoan gearLoan)
             {
                 try
                 {
                     MessageBoxResult res = MessageBox.Show($"Your request to delete {gearLoan.gear.name} for {gearLoan.loanOwner.firstName} {gearLoan.loanOwner.lastName} with id {gearLoan.id} is irreversible. Are you sure you want to continue?", "Warning", MessageBoxButton.YesNo);
                     if (res == MessageBoxResult.Yes)
                     {
-                        controller.Delete(gearLoan);
-                        controller.Complete();
+                        gearController.Update(gearLoan.gear, entity =>
+                        {
+                            entity.name = entity.name;
+                            entity.condition = entity.condition;
+                            entity.available = true;
+                            entity.condition = entity.condition;
+                        });
+                        gearLoanController.Delete(gearLoan);
+                        gearLoanController.Complete();
 
                         return true;
                     }

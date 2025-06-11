@@ -138,13 +138,19 @@ namespace PanelWindow
             {
                 SignedIn_GearLoanUI gearLoanUI = new SignedIn_GearLoanUI(_gearLoansController, _memberController, _gearController, gear);
                 gearLoanUI.ShowDialog();
-
+                RefreshGearLoansList();
+                RefreshGearList();
             }
         }
 
         private void removeGearLoanButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (gearLoansList.SelectedItem != null && gearLoansList.SelectedItem is Entities.GearLoan gearLoan)
+                if (WindowFunctions.GearLoansUI.Delete(_gearLoansController, _gearController, gearLoan))
+                {
+                    RefreshGearList();
+                    RefreshGearLoansList();
+                }
         }
     }
 }
