@@ -14,7 +14,6 @@ namespace DataManager
             Handlers.Repositories.Members Members { get; }
             Handlers.Repositories.Coaches Coaches { get; }
             Handlers.Repositories.Sessions Sessions { get; }
-            Handlers.Repositories.Categories Categories { get; }
             Handlers.Repositories.Gears Gears { get; }
             Handlers.Repositories.GearLoans GearLoans { get; }
 

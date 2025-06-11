@@ -1,0 +1,30 @@
+﻿<Window x:Class="PanelWindow.SignedIn_SessionUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PanelWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="600" Style="{DynamicResource MainWindowStyle}">
+    
+    <Grid Style="{StaticResource MainGridLayout}" HorizontalAlignment="Stretch" Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="1" Width="Auto">
+            <Label x:Name="TitleLabel" Content="Window for creating / modifying sessions" FontSize="24" Foreground="{DynamicResource ForegroundBrush}" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel x:Name="gearRegistrationPanel" Grid.Row="1" Grid.Column="1" Width="500">
+            <TextBox x:Name="sessionActivity" Text="Activity"/>
+            <TextBox x:Name="sessionDescription" Text ="Description"/>
+            <TextBox x:Name="sessionCalories" Text="Calories burnt"/>
+            <TextBox x:Name="sessionLocation" Text="Location"/>
+            <TextBox x:Name="sessionParticipants" Text="Participants"/>
+            <TextBox x:Name="sessionTime" Text="Time (HH:mm)"/>
+            <ComboBox x:Name="sessionCoach" DisplayMemberPath="coachInformation" SelectedValuePath="coachId" Height="Auto" Margin="10"/>
+            <DatePicker x:Name="sessionDate" Height="30"/>
+            <Button Content="Confirm" Click="Confirm_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

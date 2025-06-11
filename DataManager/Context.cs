@@ -19,7 +19,6 @@ namespace DataManager
         public DbSet<Entities.Member> Members { get; set; }
         public DbSet<Entities.Coach> Coaches { get; set; }
         public DbSet<Entities.Session> Sessions { get; set; }
-        public DbSet<Entities.Category> Categories { get; set; }
         public DbSet<Entities.Gear> Gears { get; set; }
         public DbSet<Entities.GearLoan> GearLoans { get; set; }
 

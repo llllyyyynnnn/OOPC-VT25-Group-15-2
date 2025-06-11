@@ -17,7 +17,6 @@ namespace DataManager
             public Repositories.Members Members { get; set; }
             public Repositories.Coaches Coaches { get; set; }
             public Repositories.Sessions Sessions { get; set; }
-            public Repositories.Categories Categories { get; set; }
             public Repositories.Gears Gears { get; set; }
             public Repositories.GearLoans GearLoans { get; set; }
 
@@ -27,7 +26,6 @@ namespace DataManager
                 Members = new Repositories.Members(_ctx);
                 Coaches = new Repositories.Coaches(_ctx);
                 Sessions = new Repositories.Sessions(_ctx);
-                Categories = new Repositories.Categories(_ctx);
                 Gears = new Repositories.Gears(_ctx);
                 GearLoans = new Repositories.GearLoans(_ctx);
             }
@@ -97,25 +95,7 @@ namespace DataManager
 
                 public void Delete(Session entity) => _ctx.Sessions.Remove(entity);
             }
-            public class Categories : Interfaces.IRepository<Entities.Category>
-            {
-                private readonly Context _ctx;
-                public Categories(Context context) => _ctx = context;
 
-                public Category GetById(int id) => _ctx.Categories.Find(id);
-
-                public IEnumerable<Category> GetAll() => _ctx.Categories.ToList();
-
-                public void Add(Category entity) => _ctx.Categories.Add(entity);
-
-                public void Update(Category entity, Action<Category> changes)
-                {
-                    changes(entity);
-                    _ctx.Categories.Update(entity);
-                }
-
-                public void Delete(Category entity) => _ctx.Categories.Remove(entity);
-            }
             public class Gears : Interfaces.IRepository<Entities.Gear>
             {
                 private readonly Context _ctx;
@@ -196,9 +176,52 @@ namespace DataManager
 
                     _uow.Coaches.Add(entity);
                 }
+                public IEnumerable<Coach> GetCoaches() => _uow.Coaches.GetAll();
+                public Coach GetCoachById(int id) => _uow.Coaches.GetById(id);
 
                 public Coach Login(string email, string password) => _uow.Coaches.Login(email, password);
 
+                public int Complete() => _uow.Complete();
+            }
+
+            public class Gears
+            {
+                private readonly IUnitOfWork _uow;
+
+                public Gears(IUnitOfWork UnitOfWork)
+                {
+                    _uow = UnitOfWork;
+                }
+
+                public void Delete(Entities.Gear entity) => _uow.Gears.Delete(entity);
+                public void Update(Gear entity, Action<Gear> changes) => _uow.Gears.Update(entity, changes);
+                public void Register(Entities.Gear entity)
+                {
+                    if (entity == null) throw new ArgumentNullException(nameof(entity));
+
+                    _uow.Gears.Add(entity);
+                }
+                public IEnumerable<Gear> GetGear() => _uow.Gears.GetAll();
+                public int Complete() => _uow.Complete();
+            }
+            public class Sessions
+            {
+                private readonly IUnitOfWork _uow;
+
+                public Sessions(IUnitOfWork UnitOfWork)
+                {
+                    _uow = UnitOfWork;
+                }
+
+                public void Delete(Entities.Session entity) => _uow.Sessions.Delete(entity);
+                public void Update(Session entity, Action<Session> changes) => _uow.Sessions.Update(entity, changes);
+                public void Register(Entities.Session entity)
+                {
+                    if (entity == null) throw new ArgumentNullException(nameof(entity));
+
+                    _uow.Sessions.Add(entity);
+                }
+                public IEnumerable<Session> GetSessions() => _uow.Sessions.GetAll();
                 public int Complete() => _uow.Complete();
             }
         }

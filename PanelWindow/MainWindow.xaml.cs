@@ -24,7 +24,7 @@ namespace PanelWindow
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
         {
-            if(ViewModels.LogInUI.LogIn(_controller, logInEmailTextBox.Text, logInPasswordTextBox.Password))
+            if(WindowFunctions.LogInUI.LogIn(_controller, logInEmailTextBox.Text, logInPasswordTextBox.Password))
             {
                 SignedIn windowSignedIn = new SignedIn();
                 windowSignedIn.Show();
@@ -45,7 +45,7 @@ namespace PanelWindow
                 pinCode = regPasswordTextBox.Password
             };
 
-            if (ViewModels.LogInUI.Register(_controller, coach))
+            if (WindowFunctions.LogInUI.Register(_controller, coach))
             {
                 SwitchPanels();
                 TitleLabel.Content = "Coach - Successfully signed up!";

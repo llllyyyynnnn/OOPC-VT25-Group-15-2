@@ -4,15 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataManager
 {
-    public class Entity
-    {
-        [Required] [Key] public int id { get; set; }
-    }
-
     public class Entities
     {
-        public class Member : Entity
+        public class Member
         {
+            [Required][Key] public int id { get; set; }
             [Required] [MaxLength(64)] public required string firstName { get; set; }
             [Required] [MaxLength(64)] public required string lastName { get; set; }
             [Required] [MaxLength(128)] public required string mailAddress { get; set; }
@@ -21,8 +17,9 @@ namespace DataManager
             [Required] [MaxLength(100)] public required string pinCode { get; set; }
         }
 
-        public class Coach : Entity
+        public class Coach
         {
+            [Required][Key] public int id { get; set; }
             [Required][MaxLength(64)] public required string firstName { get; set; }
             [Required][MaxLength(64)] public required string lastName { get; set; }
             [Required][MaxLength(128)] public required string mailAddress { get; set; }
@@ -32,31 +29,31 @@ namespace DataManager
             public required string specialisation { get; set; }
         }
 
-        public class Session : Entity
+        public class Session
         {
-            [Required][MaxLength(64)] public required string name { get; set; }
-            [Required] public required DateTime startTime { get; set; }
-            [Required] public required DateTime endTime { get; set; }
+            [Required][Key] public int id { get; set; }
+            [Required][MaxLength(64)] public required string activity { get; set; }
+            [Required][MaxLength(128)] public required string description { get; set; }
+            [Required] public required int caloriesBurnt { get; set; }
+            [Required] public required int participants { get; set; }
+            [Required] public required DateTime date { get; set; }
+            [Required] public required TimeOnly time { get; set; }
             [Required][MaxLength(64)] public required string location { get; set; }
-            [Required] public required Member member { get; set; }
-            [Required] public required Coach coach { get; set; }
+            [Required] public required int coachId { get; set; }
         }
 
-        public class Category : Entity
+        public class Gear
         {
+            [Required][Key] public int id { get; set; }
             [Required][MaxLength(64)] public required string name { get; set; }
-        }
-
-        public class Gear : Entity
-        {
-            [Required][MaxLength(64)] public required string name { get; set; }
-            [Required] public required Category category { get; set; }
+            [Required] public required string category { get; set; }
             [Required][MaxLength(64)] public required string condition { get; set; }
             [Required] public required bool available { get; set; }
         }
 
-        public class GearLoan : Entity
+        public class GearLoan
         {
+            [Required][Key] public int id { get; set; }
             [Required] public required Gear gear { get; set; }
             [Required] public required Member loanOwner { get; set; }
             [Required] public required DateTime loanDate { get; set; }

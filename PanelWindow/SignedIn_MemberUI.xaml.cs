@@ -47,7 +47,7 @@ namespace PanelWindow
         {
             if (_modifyingMember)
             {
-                ViewModels.MemberUI.Modify(_controller, _member, new Entities.Member
+                WindowFunctions.MemberUI.Modify(_controller, _member, new Entities.Member
                 {
                     firstName = regFirstNameTextBox.Text,
                     lastName = regLastNameTextBox.Text,
@@ -59,7 +59,7 @@ namespace PanelWindow
             }
             else
             {
-                ViewModels.MemberUI.Register(_controller, new Entities.Member
+                WindowFunctions.MemberUI.Register(_controller, new Entities.Member
                 {
                     firstName = regFirstNameTextBox.Text,
                     lastName = regLastNameTextBox.Text,

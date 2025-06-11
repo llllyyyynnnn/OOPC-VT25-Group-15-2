@@ -23,24 +23,47 @@
                         <DataGrid x:Name="membersList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
                     </DockPanel>
                 </TabItem>
-                <TabItem Header="Data">
+                <TabItem Header="Gear">
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
-                            <Button x:Name="refreshGearandSessionsButton" Content="Refresh" Click="refreshGearandSessionsButton_Click"/>
+                            <Button x:Name="modifyGearButton" Content="Modify" Click="modifyGearButton_Click"/>
+                            <Button x:Name="removeGearButton" Content="Remove" Click="removeGearButton_Click"/>
+                            <Button x:Name="addGearButton" Content="Add" Click="addGearButton_Click"/>
+                            <Button x:Name="loanGearButton" Content="Loan" Click="loanGearButton_Click"/>
+                            <Button x:Name="refreshGearButton" Content="Refresh" Click="refreshGearButton_Click"/>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
-                            <Label Content="Gear"/>
-                            <DataGrid x:Name="gearList1" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" Height="220" />
-                            <Label Content="Sessions"/>
-                            <DataGrid x:Name="gearList2" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" Height="220" />
+                        <DataGrid x:Name="gearList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column"/>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Loans">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
+                            <Button x:Name="removeGearLoanButton" Content="Remove loan" Click="removeGearLoanButton_Click"/>
+                            <Button x:Name="refreshGearLoansButton" Content="Refresh" Click="refreshGearLoansButton_Click"/>
                         </StackPanel>
+                        <DataGrid x:Name="gearLoansList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column"/>
                     </DockPanel>
                 </TabItem>
                 <TabItem Header="Sessions">
-
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
+                            <Button x:Name="modifySessionButton" Content="Modify" Click="modifySessionButton_Click"/>
+                            <Button x:Name="assignSessionButton" Content="Assign" Click="assignSessionButton_Click"/>
+                            <Button x:Name="removeSessionButton" Content="Remove" Click="removeSessionButton_Click"/>
+                            <Button x:Name="addSessionButton" Content="Add" Click="addSessionButton_Click"/>
+                            <Button x:Name="refreshSessionsButton" Content="Refresh" Click="refreshSessionsButton_Click"/>
+                        </StackPanel>
+                        <DataGrid x:Name="sessionsList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                    </DockPanel>
                 </TabItem>
-                <TabItem Header="Gear">
-
+                <TabItem Header="Account">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
+                            <Button x:Name="logOutButton" Content="Log out" Click="logOutButton_Click"/>
+                        </StackPanel>
+                        <Label x:Name="signedInLabel" Content="Signed in as: "/>
+                    </DockPanel>
+                   
                 </TabItem>
             </TabControl>
         </DockPanel>

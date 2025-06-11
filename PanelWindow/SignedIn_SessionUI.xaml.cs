@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using DataManager;
+using static DataManager.Entities;
+using static DataManager.Handlers;
+
+namespace PanelWindow
+{
+    public partial class SignedIn_SessionUI : Window
+    {
+        private readonly DataManager.Handlers.Controllers.Sessions _sessionsController;
+        private readonly DataManager.Handlers.Controllers.Coaches _coachesController;
+        private readonly DataManager.Handlers.Controllers.Members _membersController;
+
+        private bool _modifyingSession = false;
+        private readonly DataManager.Entities.Session _session;
+
+        public SignedIn_SessionUI(DataManager.Handlers.Controllers.Sessions sessionsController, DataManager.Handlers.Controllers.Coaches coachesController, DataManager.Handlers.Controllers.Members membersController, DataManager.Entities.Session session = null)
+        {
+            InitializeComponent();
+            _sessionsController = sessionsController;
+            _coachesController = coachesController;
+            _membersController = membersController;
+
+            sessionCoach.ItemsSource = _coachesController.GetCoaches().Select(coach => new{coachId = coach.id, coachInformation = $"{coach.firstName} {coach.lastName}: {coach.specialisation}" }).ToList();
+            if (session != null)
+            {
+                _session = session;
+                TitleLabel.Content = $"Modifying session ({session.id})";
+
+                sessionActivity.Text = session.activity;
+                sessionCalories.Text = session.caloriesBurnt.ToString();
+                sessionDate.SelectedDate = session.date;
+                sessionCoach.SelectedValue = session.coachId;
+                sessionDescription.Text = session.description;
+                sessionTime.Text = session.time.ToString("HH:mm");
+                sessionLocation.Text = session.location;
+                sessionParticipants.Text = session.participants.ToString();
+
+                _modifyingSession = true;
+            }
+            else
+                TitleLabel.Content = $"Creating new session";
+        }
+
+        private void Confirm_Click(object sender, RoutedEventArgs e)
+        {
+            if (_modifyingSession)
+            {
+                WindowFunctions.SessionUI.Modify(_sessionsController, _session, new Entities.Session
+                {
+                    activity = sessionActivity.Text,
+                    caloriesBurnt = Int32.Parse(sessionCalories.Text),
+                    coachId = (int)sessionCoach.SelectedValue,
+                    description = sessionDescription.Text,
+                    time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
+                    location = sessionLocation.Text,
+                    participants = Int32.Parse(sessionParticipants.Text),
+                    date = sessionDate.SelectedDate.Value
+                });
+            }
+            else
+            {
+                WindowFunctions.SessionUI.Register(_sessionsController, new Entities.Session
+                {
+                    activity = sessionActivity.Text,
+                    caloriesBurnt = Int32.Parse(sessionCalories.Text),
+                    coachId = (int)sessionCoach.SelectedValue,
+                    description = sessionDescription.Text,
+                    time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
+                    location = sessionLocation.Text,
+                    participants = Int32.Parse(sessionParticipants.Text),
+                    date = sessionDate.SelectedDate.Value
+                });
+            }
+
+            this.Close();
+        }
+    }
+}

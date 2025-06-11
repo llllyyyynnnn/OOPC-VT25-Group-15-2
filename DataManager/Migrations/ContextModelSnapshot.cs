@@ -22,24 +22,6 @@ namespace DataManager.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DataManager.Entities+Category", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Categories");
-                });
-
             modelBuilder.Entity("DataManager.Entities+Coach", b =>
                 {
                     b.Property<int>("id")
@@ -96,8 +78,9 @@ namespace DataManager.Migrations
                     b.Property<bool>("available")
                         .HasColumnType("bit");
 
-                    b.Property<int>("categoryid")
-                        .HasColumnType("int");
+                    b.Property<string>("category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("condition")
                         .IsRequired()
@@ -110,8 +93,6 @@ namespace DataManager.Migrations
                         .HasColumnType("nvarchar(64)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("categoryid");
 
                     b.ToTable("Gears");
                 });
@@ -194,11 +175,24 @@ namespace DataManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<string>("activity")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<int>("caloriesBurnt")
+                        .HasColumnType("int");
+
                     b.Property<int>("coachid")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("endTime")
+                    b.Property<DateTime>("date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("location")
                         .IsRequired()
@@ -208,13 +202,11 @@ namespace DataManager.Migrations
                     b.Property<int>("memberid")
                         .HasColumnType("int");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                    b.Property<int>("participants")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("startTime")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeOnly>("time")
+                        .HasColumnType("time");
 
                     b.HasKey("id");
 
@@ -223,17 +215,6 @@ namespace DataManager.Migrations
                     b.HasIndex("memberid");
 
                     b.ToTable("Sessions");
-                });
-
-            modelBuilder.Entity("DataManager.Entities+Gear", b =>
-                {
-                    b.HasOne("DataManager.Entities+Category", "category")
-                        .WithMany()
-                        .HasForeignKey("categoryid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("category");
                 });
 
             modelBuilder.Entity("DataManager.Entities+GearLoan", b =>

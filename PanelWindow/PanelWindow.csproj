@@ -12,4 +12,13 @@
     <ProjectReference Include="..\DataManager\DataManager.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="SignedIn_SessionUI.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SignedIn_GearUI.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>
