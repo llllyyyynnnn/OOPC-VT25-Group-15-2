@@ -11,23 +11,25 @@ namespace DataManager
 
     public class Entities
     {
-        public class Individual : Entity
+        public class Member : Entity
         {
-            public required string fullName { get; set; }
-        }
-
-        public class Member : Individual
-        {
-            public required DateOnly birthDate { get; set; }
-            public required string phoneNumber { get; set; }
+            public required string firstName { get; set; }
+            public required string lastName { get; set; }
             public required string mailAddress { get; set; }
+            public required string phoneNumber { get; set; }
+            public required DateOnly birthDate { get; set; }
+            public required string pinCode { get; set; }
         }
 
-        public class Coach : Individual
+        public class Coach : Entity
         {
-            public required Individual individual { get; set; }
+            public required string firstName { get; set; }
+            public required string lastName { get; set; }
+            public required string mailAddress { get; set; }
+            public required string phoneNumber { get; set; }
             public required string specialisation { get; set; }
-            public required string temporaryPin { get; set; } // before adding passcodes, implement some kind of encryption
+            public required DateTime birthDate { get; set; }
+            public required string pinCode { get; set; }
         }
 
         public class Session : Entity

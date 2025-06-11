@@ -17,6 +17,11 @@ namespace DataManager
     public class Context : DbContext
     {
         public DbSet<Entities.Member> Members { get; set; }
+        public DbSet<Entities.Coach> Coaches { get; set; }
+        public DbSet<Entities.Session> Sessions { get; set; }
+        public DbSet<Entities.Category> Categories { get; set; }
+        public DbSet<Entities.Gear> Gears { get; set; }
+        public DbSet<Entities.GearLoan> GearLoans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,65 +44,5 @@ namespace DataManager
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ApplicationDBSample;Trusted_Connection=True;");
-    }
-    public class UnitOfWork : Interfaces.IUnitOfWork
-    {
-        private readonly Context _ctx;
-        public Repositories.Members Members { get; set; }
-        public UnitOfWork(Context context)
-        {
-            _ctx = context;
-            Members = new Repositories.Members(_ctx);
-        }
-
-        public int Complete() => _ctx.SaveChanges();
-        public void Dispose() => _ctx.Dispose();
-    }
-
-    public class Repositories
-    {
-        public class Members : Interfaces.IRepository<Entities.Member>
-        {
-            private readonly Context _ctx;
-            public Members(Context context)
-            {
-                _ctx = context;
-            }
-
-            public Member GetById(int id) => _ctx.Members.Find(id);
-
-            public IEnumerable<Member> GetAll() => _ctx.Members.ToList();
-
-            public void Add(Member entity) => _ctx.Members.Add(entity);
-
-            public void Update(Member entity, Action<Member> changes) {
-                changes(entity);
-                _ctx.Members.Update(entity);
-            }
-
-            public void Delete(Member entity) => _ctx.Members.Remove(entity);
-        }
-    }
-
-    public class Controllers
-    {
-        public class Members
-        {
-            private readonly IUnitOfWork _uow;
-
-            public Members(IUnitOfWork UnitOfWork)
-            {
-                _uow = UnitOfWork;
-            }
-
-            public void Register(Entities.Member entity)
-            {
-                if(entity == null) throw new ArgumentNullException(nameof(entity));
-
-                _uow.Members.Add(entity);
-            }
-
-            public int Complete() => _uow.Complete();
-        }
     }
 }

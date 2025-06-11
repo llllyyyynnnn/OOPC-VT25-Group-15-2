@@ -14,48 +14,85 @@ namespace PanelWindow
 {
     public partial class MainWindow : Window
     {
-        private readonly DataManager.Controllers.Members _controller;
-        private readonly DataManager.Context _ctx;
-        private readonly DataManager.UnitOfWork _uow;
-
-
-        /*
-         public MainWindow(DataManager.Controllers.Members controller)
-        {
-            InitializeComponent();
-            _controller = controller;
-        }
-         */
+        private readonly DataManager.Handlers.Controllers.Coaches _controller;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            _ctx = new Context();
-            _uow = new UnitOfWork(_ctx);
-            _controller = new DataManager.Controllers.Members(_uow);
+            _controller = new DataManager.Handlers.Controllers.Coaches(Storage.uow);
         }
 
-        private void LogIn_Click_1(object sender, RoutedEventArgs e)
+        private void LogIn_Click(object sender, RoutedEventArgs e)
         {
-            DataManager.Entities.Member member = new DataManager.Entities.Member
+            try
             {
-                fullName = "",
-                birthDate = DateOnly.FromDayNumber(100),
-                phoneNumber = "123456789",
-                mailAddress = emailTextBox.Text
+                Storage.signedInCoach = _controller.Login(logInEmailTextBox.Text, logInPasswordTextBox.Password);
+                if(Storage.signedInCoach != null)
+                {
+
+                }
+                else
+                {
+                    throw new Exception("Failed to sign in");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
+            DataManager.Entities.Coach coach = new DataManager.Entities.Coach
+            {
+                firstName = firstNameTextBox.Text,
+                lastName = lastNameTextBox.Text,
+                birthDate = regDateofBirth.SelectedDate.Value,
+                phoneNumber = regPhoneNumberTextBox.Text,
+                mailAddress = regEmailTextBox.Text,
+                specialisation = regSpecialisation.Text,
+                pinCode = regPasswordTextBox.Password
             };
 
-            _controller.Register(member);
+            try
+            {
+                _controller.Register(coach);
+                _controller.Complete();
+                SwitchPanels();
+                TitleLabel.Content = "Coach - Successfully signed up!";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message} ({ex.InnerException})");
+            }
+        }
+
+        private void SwitchPanels()
+        {
+            if (logInPanel.Visibility == Visibility.Visible)
+            {
+                logInPanel.Visibility = Visibility.Collapsed;
+                registerPanel.Visibility = Visibility.Visible;
+                TitleLabel.Content = "Coach - Register";
+                noAccountLabel.Content = "Have an account already?";
+            }
+            else
+            {
+                logInPanel.Visibility = Visibility.Visible;
+                registerPanel.Visibility = Visibility.Collapsed;
+                TitleLabel.Content = "Coach - Log In";
+                noAccountLabel.Content = "Don't have an account?";
+            }
         }
 
         private void NoAccount_MouseDown(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Label clicked!");
+            SwitchPanels();
         }
         private void ForgotPassword_MouseDown(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Label clicked!");
+            
         }
     }
 }

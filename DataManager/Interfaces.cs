@@ -11,7 +11,14 @@ namespace DataManager
     {
         public interface IUnitOfWork : IDisposable
         {
-            Repositories.Members Members { get; }
+            Handlers.Repositories.Members Members { get; }
+            Handlers.Repositories.Coaches Coaches { get; }
+            Handlers.Repositories.Sessions Sessions { get; }
+            Handlers.Repositories.Categories Categories { get; }
+            Handlers.Repositories.Gears Gears { get; }
+            Handlers.Repositories.GearLoans GearLoans { get; }
+
+
             int Complete();
         }
         public interface IRepository<T> where T : class // not having global definitions is good since we can now have specific validations, etc for each entity in each respective repo
