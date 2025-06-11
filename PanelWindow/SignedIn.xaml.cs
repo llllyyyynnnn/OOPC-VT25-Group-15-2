@@ -31,11 +31,6 @@ namespace PanelWindow
             RefreshMembersList();
         }
 
-        private void logoutButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void RefreshMembersList() => membersList.ItemsSource = _controller.GetMembers();
         private void refreshMembersButton_Click(object sender, RoutedEventArgs e) => RefreshMembersList();
 
@@ -77,6 +72,11 @@ namespace PanelWindow
             {
                 MessageBox.Show("Invalid item selected");
             }
+        }
+
+        private void refreshGearandSessionsButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

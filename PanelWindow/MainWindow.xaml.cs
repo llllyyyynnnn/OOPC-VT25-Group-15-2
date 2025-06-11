@@ -24,23 +24,11 @@ namespace PanelWindow
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if(ViewModels.LogInUI.LogIn(_controller, logInEmailTextBox.Text, logInPasswordTextBox.Password))
             {
-                Storage.signedInCoach = _controller.Login(logInEmailTextBox.Text, logInPasswordTextBox.Password);
-                if(Storage.signedInCoach != null)
-                {
-                    SignedIn windowSignedIn = new SignedIn();
-                    windowSignedIn.Show();
-                    this.Close();
-                }
-                else
-                {
-                    throw new Exception("Failed to sign in");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                SignedIn windowSignedIn = new SignedIn();
+                windowSignedIn.Show();
+                this.Close();
             }
         }
 
@@ -57,16 +45,10 @@ namespace PanelWindow
                 pinCode = regPasswordTextBox.Password
             };
 
-            try
+            if (ViewModels.LogInUI.Register(_controller, coach))
             {
-                _controller.Register(coach);
-                _controller.Complete();
                 SwitchPanels();
                 TitleLabel.Content = "Coach - Successfully signed up!";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{ex.Message} ({ex.InnerException})");
             }
         }
 

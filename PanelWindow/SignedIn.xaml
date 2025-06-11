@@ -24,7 +24,17 @@
                     </DockPanel>
                 </TabItem>
                 <TabItem Header="Data">
-
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
+                            <Button x:Name="refreshGearandSessionsButton" Content="Refresh" Click="refreshGearandSessionsButton_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
+                            <Label Content="Gear"/>
+                            <DataGrid x:Name="gearList1" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" Height="220" />
+                            <Label Content="Sessions"/>
+                            <DataGrid x:Name="gearList2" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" Height="220" />
+                        </StackPanel>
+                    </DockPanel>
                 </TabItem>
                 <TabItem Header="Sessions">
 
