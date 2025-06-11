@@ -17,7 +17,7 @@ namespace DataManager.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,13 +30,13 @@ namespace DataManager.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    firstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    lastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    mailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    phoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    specialisation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    birthDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    pinCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    firstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    lastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    mailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    phoneNumber = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: false),
+                    birthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    pinCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    specialisation = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,12 +49,12 @@ namespace DataManager.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    firstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    lastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    mailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    phoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    birthDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    pinCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    firstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    lastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    mailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    phoneNumber = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: false),
+                    birthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    pinCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,9 +67,9 @@ namespace DataManager.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     categoryid = table.Column<int>(type: "int", nullable: false),
-                    condition = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    condition = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     available = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -89,10 +89,10 @@ namespace DataManager.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     startTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     endTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    location = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     memberid = table.Column<int>(type: "int", nullable: false),
                     coachid = table.Column<int>(type: "int", nullable: false)
                 },

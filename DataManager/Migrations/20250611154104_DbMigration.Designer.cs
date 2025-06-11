@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataManager.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250610231607_DbMigration")]
+    [Migration("20250611154104_DbMigration")]
     partial class DbMigration
     {
         /// <inheritdoc />
@@ -35,7 +35,8 @@ namespace DataManager.Migrations
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("id");
 
@@ -50,28 +51,33 @@ namespace DataManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<DateOnly>("birthDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("birthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("firstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("lastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("mailAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("phoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("pinCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("specialisation")
                         .IsRequired()
@@ -98,11 +104,13 @@ namespace DataManager.Migrations
 
                     b.Property<string>("condition")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("id");
 
@@ -148,28 +156,33 @@ namespace DataManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<DateOnly>("birthDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("birthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("firstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("lastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("mailAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("phoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("pinCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("id");
 
@@ -192,14 +205,16 @@ namespace DataManager.Migrations
 
                     b.Property<string>("location")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<int>("memberid")
                         .HasColumnType("int");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<DateTime>("startTime")
                         .HasColumnType("datetime2");
