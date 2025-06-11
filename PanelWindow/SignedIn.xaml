@@ -1,0 +1,38 @@
+﻿<Window x:Class="PanelWindow.SignedIn"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PanelWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" Style="{DynamicResource MainWindowStyle}">
+    <Grid Style="{StaticResource MainGridLayout}" HorizontalAlignment="Stretch" Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="1">
+            <TabControl TabStripPlacement="Left" Width="Auto" Height="Auto">
+                <TabItem Header="Members">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
+                            <Button x:Name="deleteMemberButton" Content="Delete selected" Click="deleteMemberButton_Click"/>
+                            <Button x:Name="editMemberButton" Content="Modify selected" Click="editMemberButton_Click"/>
+                            <Button x:Name="addMemberButton" Content="Add" Click="addMemberButton_Click"/>
+                            <Button x:Name="refreshMembersButton" Content="Refresh" Click="refreshMembersButton_Click"/>
+                        </StackPanel>
+                        <DataGrid x:Name="membersList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Reports">
+
+                </TabItem>
+                <TabItem Header="Sessions">
+
+                </TabItem>
+                <TabItem Header="Gear">
+
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>

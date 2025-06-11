@@ -29,7 +29,9 @@ namespace PanelWindow
                 Storage.signedInCoach = _controller.Login(logInEmailTextBox.Text, logInPasswordTextBox.Password);
                 if(Storage.signedInCoach != null)
                 {
-
+                    SignedIn windowSignedIn = new SignedIn();
+                    windowSignedIn.Show();
+                    this.Close();
                 }
                 else
                 {
@@ -46,8 +48,8 @@ namespace PanelWindow
         {
             DataManager.Entities.Coach coach = new DataManager.Entities.Coach
             {
-                firstName = firstNameTextBox.Text,
-                lastName = lastNameTextBox.Text,
+                firstName = regFirstNameTextBox.Text,
+                lastName = regLastNameTextBox.Text,
                 birthDate = regDateofBirth.SelectedDate.Value,
                 phoneNumber = regPhoneNumberTextBox.Text,
                 mailAddress = regEmailTextBox.Text,
@@ -85,7 +87,7 @@ namespace PanelWindow
                 noAccountLabel.Content = "Don't have an account?";
             }
         }
-
+         
         private void NoAccount_MouseDown(object sender, RoutedEventArgs e)
         {
             SwitchPanels();

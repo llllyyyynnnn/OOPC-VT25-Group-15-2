@@ -17,7 +17,7 @@ namespace DataManager
             public required string lastName { get; set; }
             public required string mailAddress { get; set; }
             public required string phoneNumber { get; set; }
-            public required DateOnly birthDate { get; set; }
+            public required DateTime birthDate { get; set; }
             public required string pinCode { get; set; }
         }
 

@@ -5,42 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PanelWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1000" Foreground="{StaticResource ForegroundBrush}">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF121315"/>
-            <GradientStop Color="#FF0D0C1B" Offset="1"/>
-        </LinearGradientBrush>
-    </Window.Background>
-    <Grid Margin="25" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="#7F000000">
+        Title="MainWindow" Height="800" Width="1000" Style="{DynamicResource MainWindowStyle}">
+
+    <Grid Style="{StaticResource MainGridLayout}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.25*"/>
             <RowDefinition Height="0.8*"/>
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="logInPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Grid.Row="1" Grid.Column="1" Width="400">
-            <TextBox x:Name="logInEmailTextBox" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Foreground="{DynamicResource ForegroundBrush}" BorderThickness="0,0,0,1" SelectionBrush="{DynamicResource ColorBrush}"/>
-            <PasswordBox x:Name="logInPasswordTextBox" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Foreground="{DynamicResource ForegroundBrush}" BorderThickness="0,0,0,1" SelectionBrush="{DynamicResource ColorBrush}"/>
-            <Button Content="Log in" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Height="40" BorderThickness="1,1,1,1" Foreground="{DynamicResource ForegroundBrush}" Click="LogIn_Click"/>
+        <StackPanel x:Name="logInPanel" Grid.Row="1" Grid.Column="1" Width="500">
+            <TextBox x:Name="logInEmailTextBox"/>
+            <PasswordBox x:Name="logInPasswordTextBox"/>
+            <Button Content="Log in" Click="LogIn_Click">
+            </Button>
         </StackPanel>
 
-        <StackPanel x:Name="registerPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Grid.Row="1" Grid.Column="1" Width="400" Visibility="Collapsed">
-            <TextBox x:Name="regEmailTextBox" Text="Email" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Foreground="{DynamicResource ForegroundBrush}" BorderThickness="0,0,0,1" SelectionBrush="{DynamicResource ColorBrush}"/>
-            <TextBox x:Name="firstNameTextBox" Text ="First name" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Foreground="{DynamicResource ForegroundBrush}" BorderThickness="0,0,0,1" SelectionBrush="{DynamicResource ColorBrush}"/>
-            <TextBox x:Name="lastNameTextBox" Text="Last name" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Foreground="{DynamicResource ForegroundBrush}" BorderThickness="0,0,0,1" SelectionBrush="{DynamicResource ColorBrush}"/>
-            <TextBox x:Name="regPhoneNumberTextBox" Text="Phone number" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Foreground="{DynamicResource ForegroundBrush}" BorderThickness="0,0,0,1" SelectionBrush="{DynamicResource ColorBrush}"/>
-            <TextBox x:Name="regSpecialisation" Text="Specialisation" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Foreground="{DynamicResource ForegroundBrush}" BorderThickness="0,0,0,1" SelectionBrush="{DynamicResource ColorBrush}"/>
-            <PasswordBox x:Name="regPasswordTextBox" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Foreground="{DynamicResource ForegroundBrush}" BorderThickness="0,0,0,1" SelectionBrush="{DynamicResource ColorBrush}"/>
-            <DatePicker x:Name="regDateofBirth" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Foreground="{DynamicResource GridBackgroundBrush}" BorderThickness="0,0,0,0"/>
-            <Button Content="Log in" FontSize="18" Background="{x:Null}" Margin="10" BorderBrush="{DynamicResource ForegroundBrush}" Height="40" BorderThickness="1,1,1,1" Foreground="{DynamicResource ForegroundBrush}" Click="Register_Click"/>
+        <StackPanel x:Name="registerPanel" Grid.Row="1" Grid.Column="1" Width="500" Visibility="Collapsed">
+            <TextBox x:Name="regEmailTextBox" Text="Email"/>
+            <TextBox x:Name="regFirstNameTextBox" Text ="First name"/>
+            <TextBox x:Name="regLastNameTextBox" Text="Last name"/>
+            <TextBox x:Name="regPhoneNumberTextBox" Text="Phone number"/>
+            <TextBox x:Name="regSpecialisation" Text="Specialisation"/>
+            <PasswordBox x:Name="regPasswordTextBox"/>
+            <DatePicker x:Name="regDateofBirth" Height="30"/>
+            <Button Content="Register" Click="Register_Click"/>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Grid.Row="0" Grid.Column="1" Width="400">
+        <StackPanel Grid.Row="0" Grid.Column="1" Width="400">
             <Label x:Name="TitleLabel" Content="Coach - Log In" FontSize="24" Foreground="{DynamicResource ForegroundBrush}" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Grid.Row="2" Grid.Column="1" Width="400">
+        <StackPanel Grid.Row="2" Grid.Column="1" Width="400">
             <Label x:Name="noAccountLabel" Content="Don't have an account?" MouseDown="NoAccount_MouseDown" FontSize="12" Foreground="{DynamicResource ForegroundInactiveBrush}" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
             <Label Content="Forgot password" MouseDown="ForgotPassword_MouseDown" FontSize="12" Foreground="{DynamicResource ForegroundInactiveBrush}" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         </StackPanel>
