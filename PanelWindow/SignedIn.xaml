@@ -23,7 +23,7 @@
                         <DataGrid x:Name="membersList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
                     </DockPanel>
                 </TabItem>
-                <TabItem Header="Reports">
+                <TabItem Header="Data">
 
                 </TabItem>
                 <TabItem Header="Sessions">

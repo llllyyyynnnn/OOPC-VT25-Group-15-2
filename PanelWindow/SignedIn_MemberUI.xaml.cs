@@ -47,46 +47,27 @@ namespace PanelWindow
         {
             if (_modifyingMember)
             {
-                try
+                ViewModels.MemberUI.Modify(_controller, _member, new Entities.Member
                 {
-                    _controller.Update(_member, entity =>
-                    {
-                        entity.firstName = regFirstNameTextBox.Text;
-                        entity.lastName = regLastNameTextBox.Text;
-                        entity.birthDate = regDateofBirth.SelectedDate.Value;
-                        entity.phoneNumber = regPhoneNumberTextBox.Text;
-                        entity.mailAddress = regEmailTextBox.Text;
-                        entity.pinCode = regPasswordTextBox.Password;
-                    });
-
-                    _controller.Complete();
-                }
-                catch (Exception ex) {
-                    MessageBox.Show(ex.Message);
-                }
+                    firstName = regFirstNameTextBox.Text,
+                    lastName = regLastNameTextBox.Text,
+                    birthDate = regDateofBirth.SelectedDate.Value,
+                    phoneNumber = regPhoneNumberTextBox.Text,
+                    mailAddress = regEmailTextBox.Text,
+                    pinCode = regPasswordTextBox.Password
+                });
             }
             else
             {
-                try
+                ViewModels.MemberUI.Register(_controller, new Entities.Member
                 {
-                    DataManager.Entities.Member newMember = new DataManager.Entities.Member
-                    {
-                        firstName = regFirstNameTextBox.Text,
-                        lastName = regLastNameTextBox.Text,
-                        birthDate = regDateofBirth.SelectedDate.Value,
-                        phoneNumber = regPhoneNumberTextBox.Text,
-                        mailAddress = regEmailTextBox.Text,
-                        pinCode = regPasswordTextBox.Password
-                    };
-
-                    _controller.Register(newMember);
-                    _controller.Complete();
-                    MessageBox.Show("Successfully created new member");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                    firstName = regFirstNameTextBox.Text,
+                    lastName = regLastNameTextBox.Text,
+                    birthDate = regDateofBirth.SelectedDate.Value,
+                    phoneNumber = regPhoneNumberTextBox.Text,
+                    mailAddress = regEmailTextBox.Text,
+                    pinCode = regPasswordTextBox.Password
+                });
             }
 
             this.Close();

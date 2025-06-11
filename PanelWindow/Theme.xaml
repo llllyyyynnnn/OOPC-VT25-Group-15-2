@@ -9,7 +9,7 @@
     <SolidColorBrush x:Key="ForegroundInactiveBrush"
                      Color="#FF444444"/>
     <SolidColorBrush x:Key="ColorBrush"
-                     Color="#FF0000FF"/>
+                     Color="#4c54c7"/>
 
     <System:Double x:Key="MainFontSize">16</System:Double>
     <Thickness x:Key="MarginNormal">10</Thickness>
