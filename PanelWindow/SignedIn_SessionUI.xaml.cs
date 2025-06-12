@@ -97,38 +97,43 @@ namespace PanelWindow
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            Coach selectedCoach = _coachesController.GetCoachById((int)sessionCoach.SelectedValue);
-
-            if (_modifyingSession)
+            try
             {
-
-                WindowFunctions.SessionUI.Modify(_sessionsController, _session, new Entities.Session
+                Coach selectedCoach = _coachesController.GetCoachById((int)sessionCoach.SelectedValue);
+                if (_modifyingSession)
                 {
-                    activity = sessionActivity.Text,
-                    caloriesBurnt = Int32.Parse(sessionCalories.Text),
-                    coach = selectedCoach,
-                    description = sessionDescription.Text,
-                    time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
-                    location = sessionLocation.Text,
-                    participants = Int32.Parse(sessionParticipants.Text),
-                    date = sessionDate.SelectedDate.Value,
-                    members = membersInSession
-                });
+
+                    WindowFunctions.SessionUI.Modify(_sessionsController, _session, new Entities.Session
+                    {
+                        activity = sessionActivity.Text,
+                        caloriesBurnt = Int32.Parse(sessionCalories.Text),
+                        coach = selectedCoach,
+                        description = sessionDescription.Text,
+                        time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
+                        location = sessionLocation.Text,
+                        participants = Int32.Parse(sessionParticipants.Text),
+                        date = sessionDate.SelectedDate.Value,
+                        members = membersInSession
+                    });
+                }
+                else
+                {
+                    WindowFunctions.SessionUI.Register(_sessionsController, new Entities.Session
+                    {
+                        activity = sessionActivity.Text,
+                        caloriesBurnt = Int32.Parse(sessionCalories.Text),
+                        coach = selectedCoach,
+                        description = sessionDescription.Text,
+                        time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
+                        location = sessionLocation.Text,
+                        participants = Int32.Parse(sessionParticipants.Text),
+                        date = sessionDate.SelectedDate.Value,
+                        members = membersInSession
+                    });
+                }
             }
-            else
-            {
-                WindowFunctions.SessionUI.Register(_sessionsController, new Entities.Session
-                {
-                    activity = sessionActivity.Text,
-                    caloriesBurnt = Int32.Parse(sessionCalories.Text),
-                    coach = selectedCoach,
-                    description = sessionDescription.Text,
-                    time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
-                    location = sessionLocation.Text,
-                    participants = Int32.Parse(sessionParticipants.Text),
-                    date = sessionDate.SelectedDate.Value,
-                    members = membersInSession
-                });
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
 
             this.Close();

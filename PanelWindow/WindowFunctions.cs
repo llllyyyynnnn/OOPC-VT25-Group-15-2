@@ -141,7 +141,7 @@ namespace PanelWindow
                 {
                     controller.Register(gearData);
                     controller.Complete();
-                    MessageBox.Show("Successfully created new member");
+                    MessageBox.Show("Successfully created new gear");
                     return true;
                 }
                 catch (Exception ex)
@@ -201,21 +201,21 @@ namespace PanelWindow
             {
                 try
                 {
-                    if (!gearData.gear.available)
+                    if (gearData.gear.available <= 0)
                         throw new Exception("Gear is not available.");
 
                     gearController.Update(gearData.gear, entity =>
                     {
                         entity.name = entity.name;
                         entity.condition = entity.condition;
-                        entity.available = false;
+                        entity.available -= 1;
                         entity.condition = entity.condition;
                     });
 
                     gearLoanController.Register(gearData);
                     gearLoanController.Complete();
                     gearController.Complete();
-                    MessageBox.Show("Successfully created new member");
+                    MessageBox.Show("Successfully created new gear loan");
                     return true;
                 }
                 catch (Exception ex)
@@ -239,7 +239,7 @@ namespace PanelWindow
                         {
                             entity.name = entity.name;
                             entity.condition = entity.condition;
-                            entity.available = true;
+                            entity.available += 1;
                             entity.condition = entity.condition;
                         });
                         gearLoanController.Delete(gearLoan);

@@ -45,32 +45,38 @@ namespace PanelWindow
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            if (_modifyingMember)
+            try
             {
-                WindowFunctions.MemberUI.Modify(_controller, _member, new Entities.Member
+                if (_modifyingMember)
                 {
-                    firstName = regFirstNameTextBox.Text,
-                    lastName = regLastNameTextBox.Text,
-                    birthDate = regDateofBirth.SelectedDate.Value,
-                    phoneNumber = regPhoneNumberTextBox.Text,
-                    mailAddress = regEmailTextBox.Text,
-                    pinCode = regPasswordTextBox.Password
-                });
-            }
-            else
-            {
-                WindowFunctions.MemberUI.Register(_controller, new Entities.Member
+                    WindowFunctions.MemberUI.Modify(_controller, _member, new Entities.Member
+                    {
+                        firstName = regFirstNameTextBox.Text,
+                        lastName = regLastNameTextBox.Text,
+                        birthDate = regDateofBirth.SelectedDate.Value,
+                        phoneNumber = regPhoneNumberTextBox.Text,
+                        mailAddress = regEmailTextBox.Text,
+                        pinCode = regPasswordTextBox.Password
+                    });
+                }
+                else
                 {
-                    firstName = regFirstNameTextBox.Text,
-                    lastName = regLastNameTextBox.Text,
-                    birthDate = regDateofBirth.SelectedDate.Value,
-                    phoneNumber = regPhoneNumberTextBox.Text,
-                    mailAddress = regEmailTextBox.Text,
-                    pinCode = regPasswordTextBox.Password
-                });
-            }
+                    WindowFunctions.MemberUI.Register(_controller, new Entities.Member
+                    {
+                        firstName = regFirstNameTextBox.Text,
+                        lastName = regLastNameTextBox.Text,
+                        birthDate = regDateofBirth.SelectedDate.Value,
+                        phoneNumber = regPhoneNumberTextBox.Text,
+                        mailAddress = regEmailTextBox.Text,
+                        pinCode = regPasswordTextBox.Password
+                    });
+                }
 
-            this.Close();
+                this.Close();
+            }
+            catch (Exception ex){ MessageBox.Show(ex.Message); }
+
+
         }
     }
 }

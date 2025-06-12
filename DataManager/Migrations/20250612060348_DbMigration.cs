@@ -39,29 +39,11 @@ namespace DataManager.Migrations
                     name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     condition = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    available = table.Column<bool>(type: "bit", nullable: false)
+                    available = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Gears", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Members",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    firstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    lastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    mailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    phoneNumber = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: false),
-                    birthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    pinCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Members", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,6 +70,30 @@ namespace DataManager.Migrations
                         principalTable: "Coaches",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Members",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    firstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    lastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    mailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    phoneNumber = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: false),
+                    birthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    pinCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Sessionid = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Members", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Members_Sessions_Sessionid",
+                        column: x => x.Sessionid,
+                        principalTable: "Sessions",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -118,30 +124,6 @@ namespace DataManager.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "MemberSession",
-                columns: table => new
-                {
-                    membersid = table.Column<int>(type: "int", nullable: false),
-                    sessionsid = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MemberSession", x => new { x.membersid, x.sessionsid });
-                    table.ForeignKey(
-                        name: "FK_MemberSession_Members_membersid",
-                        column: x => x.membersid,
-                        principalTable: "Members",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MemberSession_Sessions_sessionsid",
-                        column: x => x.sessionsid,
-                        principalTable: "Sessions",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_GearLoans_gearid",
                 table: "GearLoans",
@@ -153,9 +135,9 @@ namespace DataManager.Migrations
                 column: "loanOwnerid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MemberSession_sessionsid",
-                table: "MemberSession",
-                column: "sessionsid");
+                name: "IX_Members_Sessionid",
+                table: "Members",
+                column: "Sessionid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_Coachid",
@@ -168,9 +150,6 @@ namespace DataManager.Migrations
         {
             migrationBuilder.DropTable(
                 name: "GearLoans");
-
-            migrationBuilder.DropTable(
-                name: "MemberSession");
 
             migrationBuilder.DropTable(
                 name: "Gears");

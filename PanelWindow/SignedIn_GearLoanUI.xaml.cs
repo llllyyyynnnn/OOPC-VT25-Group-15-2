@@ -59,28 +59,34 @@ namespace PanelWindow
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
-            if(_modifyingLoan)
+            try
             {
-                WindowFunctions.GearLoansUI.Modify(_gearLoanController, _gearLoan, new Entities.GearLoan
+                if (_modifyingLoan)
                 {
-                    gear = _gear,
-                    loanOwner = _membersController.GetMemberById((int)gearLoansMembersList.SelectedValue),
-                    loanDate = gearLoanStartDate.SelectedDate.Value,
-                    returnDate = gearLoanReturnDate.SelectedDate.Value
-                });
-            }
-            else
-            {
-                WindowFunctions.GearLoansUI.Register(_gearLoanController, _gearController, new Entities.GearLoan
+                    WindowFunctions.GearLoansUI.Modify(_gearLoanController, _gearLoan, new Entities.GearLoan
+                    {
+                        gear = _gear,
+                        loanOwner = _membersController.GetMemberById((int)gearLoansMembersList.SelectedValue),
+                        loanDate = gearLoanStartDate.SelectedDate.Value,
+                        returnDate = gearLoanReturnDate.SelectedDate.Value
+                    });
+                }
+                else
                 {
-                    gear = _gear,
-                    loanOwner = _membersController.GetMemberById((int)gearLoansMembersList.SelectedValue),
-                    loanDate = gearLoanStartDate.SelectedDate.Value,
-                    returnDate = gearLoanReturnDate.SelectedDate.Value
-                });
-            }
+                    WindowFunctions.GearLoansUI.Register(_gearLoanController, _gearController, new Entities.GearLoan
+                    {
+                        gear = _gear,
+                        loanOwner = _membersController.GetMemberById((int)gearLoansMembersList.SelectedValue),
+                        loanDate = gearLoanStartDate.SelectedDate.Value,
+                        returnDate = gearLoanReturnDate.SelectedDate.Value
+                    });
+                }
 
-            this.Close();
+                this.Close();
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

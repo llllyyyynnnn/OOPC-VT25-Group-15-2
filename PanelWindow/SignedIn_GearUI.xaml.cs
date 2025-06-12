@@ -34,7 +34,7 @@ namespace PanelWindow
                 gearName.Text = gear.name;
                 gearCategory.Text = gear.category;
                 gearCondition.Text = gear.condition;
-                gearAvailable.IsChecked = gear.available;
+                gearAvailable.Text = gear.available.ToString();
 
                 _modifyingGear = true;
             }
@@ -51,7 +51,7 @@ namespace PanelWindow
                     name = gearName.Text,
                     category = gearCategory.Text,
                     condition = gearCondition.Text,
-                    available = gearAvailable.IsChecked ?? false,
+                    available = Int32.Parse(gearAvailable.Text),
                 });
             }
             else
@@ -61,7 +61,7 @@ namespace PanelWindow
                     name = gearName.Text,
                     category = gearCategory.Text,
                     condition = gearCondition.Text,
-                    available = gearAvailable.IsChecked ?? false,
+                    available = Int32.Parse(gearAvailable.Text),
                 });
             }
 

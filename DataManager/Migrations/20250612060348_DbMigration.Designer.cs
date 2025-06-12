@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataManager.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250612053802_DbMigration")]
+    [Migration("20250612060348_DbMigration")]
     partial class DbMigration
     {
         /// <inheritdoc />
@@ -78,8 +78,8 @@ namespace DataManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<bool>("available")
-                        .HasColumnType("bit");
+                    b.Property<int>("available")
+                        .HasColumnType("int");
 
                     b.Property<string>("category")
                         .IsRequired()
@@ -137,6 +137,9 @@ namespace DataManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("Sessionid")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("birthDate")
                         .HasColumnType("datetime2");
 
@@ -166,6 +169,8 @@ namespace DataManager.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("Sessionid");
 
                     b.ToTable("Members");
                 });
@@ -215,21 +220,6 @@ namespace DataManager.Migrations
                     b.ToTable("Sessions");
                 });
 
-            modelBuilder.Entity("MemberSession", b =>
-                {
-                    b.Property<int>("membersid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("sessionsid")
-                        .HasColumnType("int");
-
-                    b.HasKey("membersid", "sessionsid");
-
-                    b.HasIndex("sessionsid");
-
-                    b.ToTable("MemberSession");
-                });
-
             modelBuilder.Entity("DataManager.Entities+GearLoan", b =>
                 {
                     b.HasOne("DataManager.Entities+Gear", "gear")
@@ -249,6 +239,13 @@ namespace DataManager.Migrations
                     b.Navigation("loanOwner");
                 });
 
+            modelBuilder.Entity("DataManager.Entities+Member", b =>
+                {
+                    b.HasOne("DataManager.Entities+Session", null)
+                        .WithMany("members")
+                        .HasForeignKey("Sessionid");
+                });
+
             modelBuilder.Entity("DataManager.Entities+Session", b =>
                 {
                     b.HasOne("DataManager.Entities+Coach", "coach")
@@ -260,24 +257,14 @@ namespace DataManager.Migrations
                     b.Navigation("coach");
                 });
 
-            modelBuilder.Entity("MemberSession", b =>
-                {
-                    b.HasOne("DataManager.Entities+Member", null)
-                        .WithMany()
-                        .HasForeignKey("membersid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataManager.Entities+Session", null)
-                        .WithMany()
-                        .HasForeignKey("sessionsid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DataManager.Entities+Coach", b =>
                 {
                     b.Navigation("sessions");
+                });
+
+            modelBuilder.Entity("DataManager.Entities+Session", b =>
+                {
+                    b.Navigation("members");
                 });
 #pragma warning restore 612, 618
         }

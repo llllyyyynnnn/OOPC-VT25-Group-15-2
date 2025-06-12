@@ -19,7 +19,7 @@
             <TextBox x:Name="gearName" Text="Name"/>
             <TextBox x:Name="gearCategory" Text ="Category"/>
             <TextBox x:Name="gearCondition" Text="Condition"/>
-            <CheckBox x:Name="gearAvailable" Content="Available"/>
+            <TextBox x:Name="gearAvailable" Text="1"/>
             <Button Content="Confirm" Click="Confirm_Click"/>
         </StackPanel>
     </Grid>

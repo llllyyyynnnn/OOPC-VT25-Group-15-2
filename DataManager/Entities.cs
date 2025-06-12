@@ -16,7 +16,6 @@ namespace DataManager
             [Required] [MaxLength(24)] public required string phoneNumber { get; set; }
             [Required] public required DateTime birthDate { get; set; }
             [Required] [MaxLength(100)] public required string pinCode { get; set; }
-            public List<Entities.Session> sessions { get; set; } = null;
         }
 
         public class Coach
@@ -53,7 +52,7 @@ namespace DataManager
             [Required][MaxLength(64)] public required string name { get; set; }
             [Required] public required string category { get; set; }
             [Required][MaxLength(64)] public required string condition { get; set; }
-            [Required] public required bool available { get; set; }
+            [Required] public required int available { get; set; }
         }
 
         public class GearLoan
