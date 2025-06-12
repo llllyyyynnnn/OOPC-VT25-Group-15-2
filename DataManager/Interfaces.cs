@@ -11,11 +11,11 @@ namespace DataManager
     {
         public interface IUnitOfWork : IDisposable
         {
-            Handlers.Repositories.Members Members { get; }
-            Handlers.Repositories.Coaches Coaches { get; }
-            Handlers.Repositories.Sessions Sessions { get; }
-            Handlers.Repositories.Gears Gears { get; }
-            Handlers.Repositories.GearLoans GearLoans { get; }
+            Logic.Repositories.Members Members { get; }
+            Logic.Repositories.Coaches Coaches { get; }
+            Logic.Repositories.Sessions Sessions { get; }
+            Logic.Repositories.Gears Gears { get; }
+            Logic.Repositories.GearLoans GearLoans { get; }
 
 
             int Complete();

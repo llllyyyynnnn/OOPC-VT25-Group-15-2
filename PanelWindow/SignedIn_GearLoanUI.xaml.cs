@@ -19,9 +19,9 @@ namespace PanelWindow
 {
     public partial class SignedIn_GearLoanUI : Window
     {
-        private readonly DataManager.Handlers.Controllers.GearLoans _gearLoanController;
-        private readonly DataManager.Handlers.Controllers.Members _membersController;
-        private readonly DataManager.Handlers.Controllers.Gears _gearController;
+        private readonly DataManager.Logic.Controllers.GearLoans _gearLoanController;
+        private readonly DataManager.Logic.Controllers.Members _membersController;
+        private readonly DataManager.Logic.Controllers.Gears _gearController;
 
         private readonly DataManager.Entities.Gear _gear;
 
@@ -30,7 +30,7 @@ namespace PanelWindow
         private readonly DataManager.Entities.GearLoan _gearLoan;
         private List<Member> membersList = new List<Member>();
 
-        public SignedIn_GearLoanUI(DataManager.Handlers.Controllers.GearLoans gearLoanController, DataManager.Handlers.Controllers.Members memberController, DataManager.Handlers.Controllers.Gears gearController, DataManager.Entities.Gear gear,DataManager.Entities.GearLoan gearLoan = null)
+        public SignedIn_GearLoanUI(DataManager.Logic.Controllers.GearLoans gearLoanController, DataManager.Logic.Controllers.Members memberController, DataManager.Logic.Controllers.Gears gearController, DataManager.Entities.Gear gear,DataManager.Entities.GearLoan gearLoan = null)
         {
             InitializeComponent();
 

@@ -18,11 +18,11 @@ namespace PanelWindow
 {
     public partial class SignedIn_MemberUI : Window
     {
-        private readonly DataManager.Handlers.Controllers.Members _controller;
+        private readonly DataManager.Logic.Controllers.Members _controller;
         private bool _modifyingMember = false;
         private readonly DataManager.Entities.Member _member;
 
-        public SignedIn_MemberUI(DataManager.Handlers.Controllers.Members controller, DataManager.Entities.Member member = null)
+        public SignedIn_MemberUI(DataManager.Logic.Controllers.Members controller, DataManager.Entities.Member member = null)
         {
             InitializeComponent();
             _controller = controller;

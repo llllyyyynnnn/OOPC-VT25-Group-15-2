@@ -9,7 +9,7 @@ using static DataManager.Interfaces;
 
 namespace DataManager
 {
-    public class Handlers
+    public class Logic
     {
         public class UnitOfWork : Interfaces.IUnitOfWork
         {

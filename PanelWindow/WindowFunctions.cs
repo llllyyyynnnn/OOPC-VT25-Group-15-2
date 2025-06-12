@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DataManager.Handlers;
+using static DataManager.Logic;
 using System.Windows;
 using static DataManager.Entities;
 using DataManager;
@@ -14,7 +14,7 @@ namespace PanelWindow
     {
         public static class LogInUI
         {
-            public static bool LogIn(DataManager.Handlers.Controllers.Coaches controller, string email, string password)
+            public static bool LogIn(DataManager.Logic.Controllers.Coaches controller, string email, string password)
             {
                 try
                 {
@@ -31,7 +31,7 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Register(DataManager.Handlers.Controllers.Coaches controller, DataManager.Entities.Coach coach)
+            public static bool Register(DataManager.Logic.Controllers.Coaches controller, DataManager.Entities.Coach coach)
             {
                 try
                 {
@@ -49,7 +49,7 @@ namespace PanelWindow
 
         public static class MemberUI
         {
-            public static bool Modify(DataManager.Handlers.Controllers.Members controller, DataManager.Entities.Member member, DataManager.Entities.Member memberModifiedData)
+            public static bool Modify(DataManager.Logic.Controllers.Members controller, DataManager.Entities.Member member, DataManager.Entities.Member memberModifiedData)
             {
                 try
                 {
@@ -74,7 +74,7 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Register(DataManager.Handlers.Controllers.Members controller, DataManager.Entities.Member memberData)
+            public static bool Register(DataManager.Logic.Controllers.Members controller, DataManager.Entities.Member memberData)
             {
                 try
                 {
@@ -90,7 +90,7 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Delete(DataManager.Handlers.Controllers.Members controller, DataManager.Entities.Member member)
+            public static bool Delete(DataManager.Logic.Controllers.Members controller, DataManager.Entities.Member member)
             {
                 try
                 {
@@ -114,7 +114,7 @@ namespace PanelWindow
 
         public static class GearUI
         {
-            public static bool Modify(DataManager.Handlers.Controllers.Gears controller, DataManager.Entities.Gear gear, DataManager.Entities.Gear gearModifiedData)
+            public static bool Modify(DataManager.Logic.Controllers.Gears controller, DataManager.Entities.Gear gear, DataManager.Entities.Gear gearModifiedData)
             {
                 try
                 {
@@ -136,7 +136,7 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Register(DataManager.Handlers.Controllers.Gears controller, DataManager.Entities.Gear gearData)
+            public static bool Register(DataManager.Logic.Controllers.Gears controller, DataManager.Entities.Gear gearData)
             {
                 try
                 {
@@ -152,7 +152,7 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Delete(DataManager.Handlers.Controllers.Gears controller, DataManager.Entities.Gear gear)
+            public static bool Delete(DataManager.Logic.Controllers.Gears controller, DataManager.Entities.Gear gear)
             {
                 try
                 {
@@ -176,7 +176,7 @@ namespace PanelWindow
 
         public static class GearLoansUI
         {
-            public static bool Modify(DataManager.Handlers.Controllers.GearLoans gearLoanController, DataManager.Entities.GearLoan gearLoan, DataManager.Entities.GearLoan gearLoanModifiedData)
+            public static bool Modify(DataManager.Logic.Controllers.GearLoans gearLoanController, DataManager.Entities.GearLoan gearLoan, DataManager.Entities.GearLoan gearLoanModifiedData)
             {
                 try
                 {
@@ -198,7 +198,7 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Register(DataManager.Handlers.Controllers.GearLoans gearLoanController, DataManager.Handlers.Controllers.Gears gearController, DataManager.Entities.GearLoan gearData)
+            public static bool Register(DataManager.Logic.Controllers.GearLoans gearLoanController, DataManager.Logic.Controllers.Gears gearController, DataManager.Entities.GearLoan gearData)
             {
                 try
                 {
@@ -226,7 +226,7 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Delete(DataManager.Handlers.Controllers.GearLoans gearLoanController, DataManager.Handlers.Controllers.Gears gearController, DataManager.Entities.GearLoan gearLoan)
+            public static bool Delete(DataManager.Logic.Controllers.GearLoans gearLoanController, DataManager.Logic.Controllers.Gears gearController, DataManager.Entities.GearLoan gearLoan)
             {
                 try
                 {
@@ -260,7 +260,7 @@ namespace PanelWindow
 
         public static class SessionUI
         {
-            public static bool Modify(DataManager.Handlers.Controllers.Sessions controller, DataManager.Entities.Session session, DataManager.Entities.Session sessionModifiedData)
+            public static bool Modify(DataManager.Logic.Controllers.Sessions controller, DataManager.Entities.Session session, DataManager.Entities.Session sessionModifiedData)
             {
                 try
                 {
@@ -290,7 +290,7 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Register(DataManager.Handlers.Controllers.Sessions controller, DataManager.Entities.Session sessionData)
+            public static bool Register(DataManager.Logic.Controllers.Sessions controller, DataManager.Entities.Session sessionData)
             {
                 try
                 {
@@ -309,7 +309,7 @@ namespace PanelWindow
                 }
             }
 
-            public static bool Delete(DataManager.Handlers.Controllers.Sessions controller, DataManager.Entities.Session session)
+            public static bool Delete(DataManager.Logic.Controllers.Sessions controller, DataManager.Entities.Session session)
             {
                 try
                 {

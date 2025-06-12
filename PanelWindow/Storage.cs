@@ -9,13 +9,13 @@ namespace PanelWindow
     public static class Storage
     {
         public static DataManager.Context ctx { get; private set; }
-        public static DataManager.Handlers.UnitOfWork uow { get; private set; }
+        public static DataManager.Logic.UnitOfWork uow { get; private set; }
         public static DataManager.Entities.Coach signedInCoach { get; set; }
 
         public static void Initialize()
         {
             ctx = new DataManager.Context();
-            uow = new DataManager.Handlers.UnitOfWork(ctx);
+            uow = new DataManager.Logic.UnitOfWork(ctx);
         }
     }
 }

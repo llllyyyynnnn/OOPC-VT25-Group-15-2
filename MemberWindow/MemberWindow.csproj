@@ -18,4 +18,8 @@
     </Page>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="VIewmodels\" />
+  </ItemGroup>
+
 </Project>

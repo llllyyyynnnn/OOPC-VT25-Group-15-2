@@ -14,15 +14,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataManager;
 using static DataManager.Entities;
-using static DataManager.Handlers;
+using static DataManager.Logic;
 
 namespace PanelWindow
 {
     public partial class SignedIn_SessionUI : Window
     {
-        private readonly DataManager.Handlers.Controllers.Sessions _sessionsController;
-        private readonly DataManager.Handlers.Controllers.Coaches _coachesController;
-        private readonly DataManager.Handlers.Controllers.Members _membersController;
+        private readonly DataManager.Logic.Controllers.Sessions _sessionsController;
+        private readonly DataManager.Logic.Controllers.Coaches _coachesController;
+        private readonly DataManager.Logic.Controllers.Members _membersController;
 
         private bool _modifyingSession = false;
         private readonly DataManager.Entities.Session _session;
@@ -63,7 +63,7 @@ namespace PanelWindow
             RefreshLists();
         }
 
-        public SignedIn_SessionUI(DataManager.Handlers.Controllers.Sessions sessionsController, DataManager.Handlers.Controllers.Coaches coachesController, DataManager.Handlers.Controllers.Members membersController, DataManager.Entities.Session session = null)
+        public SignedIn_SessionUI(DataManager.Logic.Controllers.Sessions sessionsController, DataManager.Logic.Controllers.Coaches coachesController, DataManager.Logic.Controllers.Members membersController, DataManager.Entities.Session session = null)
         {
             InitializeComponent();
             _sessionsController = sessionsController;

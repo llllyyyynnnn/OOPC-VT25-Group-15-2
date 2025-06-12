@@ -18,11 +18,11 @@ namespace PanelWindow
 {
     public partial class SignedIn_GearUI : Window
     {
-        private readonly DataManager.Handlers.Controllers.Gears _controller;
+        private readonly DataManager.Logic.Controllers.Gears _controller;
         private bool _modifyingGear = false;
         private readonly DataManager.Entities.Gear _gear;
 
-        public SignedIn_GearUI(DataManager.Handlers.Controllers.Gears controller, DataManager.Entities.Gear gear = null)
+        public SignedIn_GearUI(DataManager.Logic.Controllers.Gears controller, DataManager.Entities.Gear gear = null)
         {
             InitializeComponent();
             _controller = controller;

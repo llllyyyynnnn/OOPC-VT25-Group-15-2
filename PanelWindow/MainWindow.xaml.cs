@@ -14,12 +14,12 @@ namespace PanelWindow
 {
     public partial class MainWindow : Window
     {
-        private readonly DataManager.Handlers.Controllers.Coaches _controller;
+        private readonly DataManager.Logic.Controllers.Coaches _controller;
 
         public MainWindow()
         {
             InitializeComponent();
-            _controller = new DataManager.Handlers.Controllers.Coaches(Storage.uow);
+            _controller = new DataManager.Logic.Controllers.Coaches(Storage.uow);
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)

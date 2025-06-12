@@ -13,29 +13,29 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataManager;
-using static DataManager.Handlers;
+using static DataManager.Logic;
 
 namespace PanelWindow
 {
     public partial class SignedIn : Window
     {
-        private readonly DataManager.Handlers.Controllers.Members _memberController;
-        private readonly DataManager.Handlers.Controllers.Gears _gearController;
-        private readonly DataManager.Handlers.Controllers.GearLoans _gearLoansController;
+        private readonly DataManager.Logic.Controllers.Members _memberController;
+        private readonly DataManager.Logic.Controllers.Gears _gearController;
+        private readonly DataManager.Logic.Controllers.GearLoans _gearLoansController;
 
-        private readonly DataManager.Handlers.Controllers.Sessions _sessionsController;
-        private readonly DataManager.Handlers.Controllers.Coaches _coachesController;
+        private readonly DataManager.Logic.Controllers.Sessions _sessionsController;
+        private readonly DataManager.Logic.Controllers.Coaches _coachesController;
 
         public SignedIn()
         {
             InitializeComponent();
             signedInLabel.Content = $"Currently signed in as: {Storage.signedInCoach.mailAddress}";
 
-            _memberController = new DataManager.Handlers.Controllers.Members(Storage.uow);
-            _gearController = new DataManager.Handlers.Controllers.Gears(Storage.uow);
-            _gearLoansController = new DataManager.Handlers.Controllers.GearLoans(Storage.uow);
-            _sessionsController = new DataManager.Handlers.Controllers.Sessions(Storage.uow);
-            _coachesController = new DataManager.Handlers.Controllers.Coaches(Storage.uow);
+            _memberController = new DataManager.Logic.Controllers.Members(Storage.uow);
+            _gearController = new DataManager.Logic.Controllers.Gears(Storage.uow);
+            _gearLoansController = new DataManager.Logic.Controllers.GearLoans(Storage.uow);
+            _sessionsController = new DataManager.Logic.Controllers.Sessions(Storage.uow);
+            _coachesController = new DataManager.Logic.Controllers.Coaches(Storage.uow);
 
             RefreshMembersList();
             RefreshGearList();
