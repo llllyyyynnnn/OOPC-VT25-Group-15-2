@@ -36,6 +36,7 @@ namespace PanelWindow
                 regDateofBirth.Text = member.birthDate.ToString();
                 regEmailTextBox.Text = member.mailAddress;
                 regPasswordTextBox.Password = member.pinCode;
+                regPaymentStatus.IsChecked = member.paymentStatus;
 
                 _modifyingMember = true;
             }
@@ -56,7 +57,8 @@ namespace PanelWindow
                         birthDate = regDateofBirth.SelectedDate.Value,
                         phoneNumber = regPhoneNumberTextBox.Text,
                         mailAddress = regEmailTextBox.Text,
-                        pinCode = regPasswordTextBox.Password
+                        pinCode = regPasswordTextBox.Password,
+                        paymentStatus = regPaymentStatus.IsChecked.Value
                     });
                 }
                 else
@@ -68,7 +70,8 @@ namespace PanelWindow
                         birthDate = regDateofBirth.SelectedDate.Value,
                         phoneNumber = regPhoneNumberTextBox.Text,
                         mailAddress = regEmailTextBox.Text,
-                        pinCode = regPasswordTextBox.Password
+                        pinCode = regPasswordTextBox.Password,
+                        paymentStatus = regPaymentStatus.IsChecked.Value
                     });
                 }
 

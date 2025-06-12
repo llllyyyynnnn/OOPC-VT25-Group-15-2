@@ -61,6 +61,7 @@ namespace PanelWindow
                         entity.phoneNumber = memberModifiedData.phoneNumber;
                         entity.mailAddress = memberModifiedData.mailAddress;
                         entity.pinCode = memberModifiedData.pinCode;
+                        entity.paymentStatus = memberModifiedData.paymentStatus;
                     });
 
                     controller.Complete();

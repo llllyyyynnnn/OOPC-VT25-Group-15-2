@@ -154,7 +154,17 @@ namespace DataManager
                     _uow.Members.Add(entity);
                 }
 
-                public void Delete(Entities.Member entity) => _uow.Members.Delete(entity);
+                public void Delete(Entities.Member entity)
+                {
+                    try
+                    {
+                        _uow.Members.Delete(entity);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
                 public void Update(Entities.Member entity, Action<Entities.Member> changes) => _uow.Members.Update(entity, changes);
                 public IEnumerable<Entities.Member> GetMembers() => _uow.Members.GetAll();
                 public Entities.Member GetMemberById(int id) => _uow.Members.GetById(id);

@@ -16,6 +16,8 @@ namespace DataManager
             [Required] [MaxLength(24)] public required string phoneNumber { get; set; }
             [Required] public required DateTime birthDate { get; set; }
             [Required] [MaxLength(100)] public required string pinCode { get; set; }
+
+            [Required] public required bool paymentStatus { get; set; } = false;
         }
 
         public class Coach

@@ -20,6 +20,7 @@
             <TextBox x:Name="regLastNameTextBox" Text="Last name"/>
             <TextBox x:Name="regPhoneNumberTextBox" Text="Phone number"/>
             <PasswordBox x:Name="regPasswordTextBox"/>
+            <CheckBox x:Name="regPaymentStatus" Content="Has paid"/>
             <DatePicker x:Name="regDateofBirth" Height="30"/>
             <Button Content="Confirm" Click="Confirm_Click"/>
         </StackPanel>
