@@ -39,17 +39,26 @@ namespace PanelWindow
 
         private void SyncMemberListsToSession(int id)
         {
+            if (_sessionsController == null)
+                return;
 
-            membersInSession = _sessionsController.GetMembers(id).ToList();
+            try
+            {
+                membersInSession = _sessionsController.GetMembers(id).ToList();
 
-            sessionCurrentMembersList.ItemsSource = membersInSession
-                .Select(member => new {
-                    memberId = member.id,
-                    memberInformation = $"{member.firstName} {member.lastName}: In this session"
-                }).ToList();
+                sessionCurrentMembersList.ItemsSource = membersInSession
+                    .Select(member => new {
+                        memberId = member.id,
+                        memberInformation = $"{member.firstName} {member.lastName}: In this session"
+                    }).ToList();
 
-            HashSet<int> sessionMemberIds = membersInSession.Select(m => m.id).ToHashSet();
-            membersNotInSession.RemoveAll(member => sessionMemberIds.Contains(member.id));
+                HashSet<int> sessionMemberIds = membersInSession.Select(m => m.id).ToHashSet();
+                membersNotInSession.RemoveAll(member => sessionMemberIds.Contains(member.id));
+            }
+            catch (Exception ex)
+            {
+                
+            }
 
             RefreshLists();
         }
@@ -72,7 +81,7 @@ namespace PanelWindow
                 sessionActivity.Text = session.activity;
                 sessionCalories.Text = session.caloriesBurnt.ToString();
                 sessionDate.SelectedDate = session.date;
-                sessionCoach.SelectedValue = session.coachId;
+                sessionCoach.SelectedValue = session.coach.id;
                 sessionDescription.Text = session.description;
                 sessionTime.Text = session.time.ToString("HH:mm");
                 sessionLocation.Text = session.location;
@@ -88,13 +97,16 @@ namespace PanelWindow
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
+            Coach selectedCoach = _coachesController.GetCoachById((int)sessionCoach.SelectedValue);
+
             if (_modifyingSession)
             {
+
                 WindowFunctions.SessionUI.Modify(_sessionsController, _session, new Entities.Session
                 {
                     activity = sessionActivity.Text,
                     caloriesBurnt = Int32.Parse(sessionCalories.Text),
-                    coachId = (int)sessionCoach.SelectedValue,
+                    coach = selectedCoach,
                     description = sessionDescription.Text,
                     time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
                     location = sessionLocation.Text,
@@ -109,7 +121,7 @@ namespace PanelWindow
                 {
                     activity = sessionActivity.Text,
                     caloriesBurnt = Int32.Parse(sessionCalories.Text),
-                    coachId = (int)sessionCoach.SelectedValue,
+                    coach = selectedCoach,
                     description = sessionDescription.Text,
                     time = TimeOnly.ParseExact(sessionTime.Text, "HH:mm"),
                     location = sessionLocation.Text,
@@ -129,7 +141,6 @@ namespace PanelWindow
             membersInSession.Add(member);
             membersNotInSession.Remove(member);
 
-            
             RefreshLists();
         }
 

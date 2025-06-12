@@ -134,9 +134,6 @@ namespace DataManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int?>("Sessionid")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("birthDate")
                         .HasColumnType("datetime2");
 
@@ -167,8 +164,6 @@ namespace DataManager.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("Sessionid");
-
                     b.ToTable("Members");
                 });
 
@@ -180,15 +175,15 @@ namespace DataManager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<int>("Coachid")
+                        .HasColumnType("int");
+
                     b.Property<string>("activity")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
                     b.Property<int>("caloriesBurnt")
-                        .HasColumnType("int");
-
-                    b.Property<int>("coachId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("date")
@@ -212,7 +207,24 @@ namespace DataManager.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("Coachid");
+
                     b.ToTable("Sessions");
+                });
+
+            modelBuilder.Entity("MemberSession", b =>
+                {
+                    b.Property<int>("membersid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("sessionsid")
+                        .HasColumnType("int");
+
+                    b.HasKey("membersid", "sessionsid");
+
+                    b.HasIndex("sessionsid");
+
+                    b.ToTable("MemberSession");
                 });
 
             modelBuilder.Entity("DataManager.Entities+GearLoan", b =>
@@ -226,7 +238,7 @@ namespace DataManager.Migrations
                     b.HasOne("DataManager.Entities+Member", "loanOwner")
                         .WithMany()
                         .HasForeignKey("loanOwnerid")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("gear");
@@ -234,16 +246,35 @@ namespace DataManager.Migrations
                     b.Navigation("loanOwner");
                 });
 
-            modelBuilder.Entity("DataManager.Entities+Member", b =>
-                {
-                    b.HasOne("DataManager.Entities+Session", null)
-                        .WithMany("members")
-                        .HasForeignKey("Sessionid");
-                });
-
             modelBuilder.Entity("DataManager.Entities+Session", b =>
                 {
-                    b.Navigation("members");
+                    b.HasOne("DataManager.Entities+Coach", "coach")
+                        .WithMany("sessions")
+                        .HasForeignKey("Coachid")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("coach");
+                });
+
+            modelBuilder.Entity("MemberSession", b =>
+                {
+                    b.HasOne("DataManager.Entities+Member", null)
+                        .WithMany()
+                        .HasForeignKey("membersid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataManager.Entities+Session", null)
+                        .WithMany()
+                        .HasForeignKey("sessionsid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DataManager.Entities+Coach", b =>
+                {
+                    b.Navigation("sessions");
                 });
 #pragma warning restore 612, 618
         }

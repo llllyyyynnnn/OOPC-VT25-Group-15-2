@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataManager
 {
@@ -15,6 +16,7 @@ namespace DataManager
             [Required] [MaxLength(24)] public required string phoneNumber { get; set; }
             [Required] public required DateTime birthDate { get; set; }
             [Required] [MaxLength(100)] public required string pinCode { get; set; }
+            public List<Entities.Session> sessions { get; set; } = null;
         }
 
         public class Coach
@@ -27,6 +29,7 @@ namespace DataManager
             [Required] public required DateTime birthDate { get; set; }
             [Required][MaxLength(100)] public required string pinCode { get; set; }
             public required string specialisation { get; set; }
+            public List<Entities.Session> sessions { get; set; } = null;
         }
 
         public class Session
@@ -39,7 +42,8 @@ namespace DataManager
             [Required] public required DateTime date { get; set; }
             [Required] public required TimeOnly time { get; set; }
             [Required][MaxLength(64)] public required string location { get; set; }
-            [Required] public required int coachId { get; set; }
+            [Required] public int Coachid { get; set; }
+            [ForeignKey("Coachid")] public required Coach coach { get; set; }
             public List<Entities.Member> members { get; set; }
         }
 

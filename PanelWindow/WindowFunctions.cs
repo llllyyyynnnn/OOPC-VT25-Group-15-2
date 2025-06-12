@@ -229,6 +229,9 @@ namespace PanelWindow
             {
                 try
                 {
+                    if (gearLoan == null)
+                        return false;
+
                     MessageBoxResult res = MessageBox.Show($"Your request to delete {gearLoan.gear.name} for {gearLoan.loanOwner.firstName} {gearLoan.loanOwner.lastName} with id {gearLoan.id} is irreversible. Are you sure you want to continue?", "Warning", MessageBoxButton.YesNo);
                     if (res == MessageBoxResult.Yes)
                     {
@@ -269,7 +272,7 @@ namespace PanelWindow
                         entity.caloriesBurnt = sessionModifiedData.caloriesBurnt;
                         entity.date = sessionModifiedData.date;
                         entity.description = sessionModifiedData.description;
-                        entity.coachId = sessionModifiedData.coachId;
+                        entity.coach = sessionModifiedData.coach;
                         entity.time = sessionModifiedData.time;
                         entity.location = sessionModifiedData.location;
                         entity.participants = sessionModifiedData.participants;

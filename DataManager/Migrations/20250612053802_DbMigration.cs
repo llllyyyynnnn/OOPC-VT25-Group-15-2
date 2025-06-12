@@ -47,6 +47,24 @@ namespace DataManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Members",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    firstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    lastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    mailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    phoneNumber = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: false),
+                    birthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    pinCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Members", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sessions",
                 columns: table => new
                 {
@@ -59,35 +77,17 @@ namespace DataManager.Migrations
                     date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     time = table.Column<TimeOnly>(type: "time", nullable: false),
                     location = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    coachId = table.Column<int>(type: "int", nullable: false)
+                    Coachid = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sessions", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Members",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    firstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    lastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    mailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    phoneNumber = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: false),
-                    birthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    pinCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Sessionid = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Members", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Members_Sessions_Sessionid",
-                        column: x => x.Sessionid,
-                        principalTable: "Sessions",
-                        principalColumn: "id");
+                        name: "FK_Sessions_Coaches_Coachid",
+                        column: x => x.Coachid,
+                        principalTable: "Coaches",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,6 +115,30 @@ namespace DataManager.Migrations
                         column: x => x.loanOwnerid,
                         principalTable: "Members",
                         principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MemberSession",
+                columns: table => new
+                {
+                    membersid = table.Column<int>(type: "int", nullable: false),
+                    sessionsid = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MemberSession", x => new { x.membersid, x.sessionsid });
+                    table.ForeignKey(
+                        name: "FK_MemberSession_Members_membersid",
+                        column: x => x.membersid,
+                        principalTable: "Members",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MemberSession_Sessions_sessionsid",
+                        column: x => x.sessionsid,
+                        principalTable: "Sessions",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -129,19 +153,24 @@ namespace DataManager.Migrations
                 column: "loanOwnerid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Members_Sessionid",
-                table: "Members",
-                column: "Sessionid");
+                name: "IX_MemberSession_sessionsid",
+                table: "MemberSession",
+                column: "sessionsid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sessions_Coachid",
+                table: "Sessions",
+                column: "Coachid");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Coaches");
+                name: "GearLoans");
 
             migrationBuilder.DropTable(
-                name: "GearLoans");
+                name: "MemberSession");
 
             migrationBuilder.DropTable(
                 name: "Gears");
@@ -151,6 +180,9 @@ namespace DataManager.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sessions");
+
+            migrationBuilder.DropTable(
+                name: "Coaches");
         }
     }
 }
