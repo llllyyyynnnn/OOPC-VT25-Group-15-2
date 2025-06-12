@@ -30,7 +30,7 @@ namespace DataManager
             modelBuilder.Entity<Session>().HasOne(s => s.coach).WithMany(c => c.sessions).HasForeignKey(s => s.Coachid).OnDelete(DeleteBehavior.Restrict);
 
             // A gear loan must have a gear, but a gear does not need a loan. A gear can only be connected to one loan at a time.
-            modelBuilder.Entity<Entities.GearLoan>().HasOne(gl => gl.gear).WithMany().OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Entities.GearLoan>().HasOne(gl => gl.gear).WithMany().OnDelete(DeleteBehavior.Cascade);
 
             // A gear loan can only be connected to one member, who can have many loans
             modelBuilder.Entity<Entities.GearLoan>().HasOne(gl => gl.loanOwner).WithMany().OnDelete(DeleteBehavior.Restrict);

@@ -1,8 +1,9 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using Microsoft.Identity.Client.Extensions.Msal;
 
-namespace PanelWindow
+namespace MemberWindow
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -12,11 +13,10 @@ namespace PanelWindow
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            Storage.Initialize();
+            //Storage.Initialize();
 
             MainWindow main = new MainWindow();
             main.Show();
         }
     }
-
 }
