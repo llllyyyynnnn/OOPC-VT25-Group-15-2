@@ -35,7 +35,7 @@ namespace MemberWindow.Viewmodels
         private string _newPinCode = "New password";
         public string newPinCode { get => _newPinCode; set { _newPinCode = value; OnPropertyChanged(); } }
 
-        
+
         public string mailAddress { get; private set; }
         public string welcomeMember { get; private set; }
 
@@ -73,7 +73,7 @@ namespace MemberWindow.Viewmodels
                         int memberCount = 0;
                         bool inSession = false;
 
-                        if(_selectedSession.members != null && _selectedSession.members.Count > 0)
+                        if (_selectedSession.members != null && _selectedSession.members.Count > 0)
                         {
                             memberCount = _selectedSession.members.Count;
                             inSession = selectedSession.members.Contains(Storage.signedInMember);
@@ -146,26 +146,16 @@ namespace MemberWindow.Viewmodels
         {
             try
             {
-                if (selectedSession.members != null || selectedSession.participants + 1 < selectedSession.members.Count)
-                {
-                    if (selectedSession.members.Contains(Storage.signedInMember))
-                        throw new Exception("You are already in this session!");
+                _sessionController.JoinSession(Storage.signedInMember, selectedSession);
+                _memberController.AddSession(Storage.signedInMember, selectedSession);
+                _sessionController.Complete();
+                _memberController.Complete();
 
-                    List<Member> newMembersList = _selectedSession.members;
-                    newMembersList.Add(Storage.signedInMember);
-                    _sessionController.Update(selectedSession, entity => { entity.members = newMembersList; });
-                    _sessionController.Complete();
-
-                    RefreshLists();
-                }
-                else
-                {
-                    MessageBox.Show("This session is full!");
-                }
+                RefreshLists();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + " " + ex.InnerException);
             }
         }
 
@@ -173,19 +163,10 @@ namespace MemberWindow.Viewmodels
         {
             try
             {
-                if (selectedSession.members.Contains(Storage.signedInMember))
-                {
-                    List<Member> newMembersList = _selectedSession.members;
-                    newMembersList.Remove(Storage.signedInMember);
-                    _sessionController.Update(selectedSession, entity => { entity.members = newMembersList; });
-                    _sessionController.Complete();
+                _sessionController.LeaveSession(Storage.signedInMember, selectedSession);
+                _sessionController.Complete();
 
-                    RefreshLists();
-                }
-                else
-                {
-                    MessageBox.Show("Not part of session!");
-                }
+                RefreshLists();
             }
             catch (Exception ex)
             {
@@ -197,16 +178,11 @@ namespace MemberWindow.Viewmodels
         {
             try
             {
-                if (_currentPinCode == Storage.signedInMember.pinCode)
-                {
-                    _memberController.Update(Storage.signedInMember, entity => { entity.pinCode = newPinCode; });
-                    _memberController.Complete();
+                _memberController.ChangePassword(Storage.signedInMember, currentPinCode, newPinCode);
+                _memberController.Complete();
 
-                    currentPinCode = "Current password";
-                    newPinCode = "New password";
-                }
-                else
-                    throw new Exception("Current password is invalid");
+                currentPinCode = "Current password";
+                newPinCode = "New password";
             }
             catch (Exception ex)
             {

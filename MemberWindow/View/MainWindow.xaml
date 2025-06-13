@@ -35,7 +35,7 @@
 
         <StackPanel Grid.Row="2" Grid.Column="1" Width="400">
             <Label x:Name="noAccountLabel" Content="Don't have an account?" MouseDown="NoAccount_MouseDown" FontSize="12" Foreground="{DynamicResource ForegroundInactiveBrush}" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-            <Label Content="Forgot password" MouseDown="ForgotPassword_MouseDown" FontSize="12" Foreground="{DynamicResource ForegroundInactiveBrush}" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+            <Label Content="Forgot password" FontSize="12" Foreground="{DynamicResource ForegroundInactiveBrush}" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Window>

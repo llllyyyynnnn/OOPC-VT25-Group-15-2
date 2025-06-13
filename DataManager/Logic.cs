@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client.Extensions.Msal;
 using static DataManager.Entities;
 using static DataManager.Interfaces;
 
@@ -168,6 +169,18 @@ namespace DataManager
                 public IEnumerable<Entities.Member> GetMembers() => _uow.Members.GetAll();
                 public Entities.Member GetMemberById(int id) => _uow.Members.GetById(id);
                 public Entities.Member Login(string email, string password) => _uow.Members.Login(email, password);
+                public void AddSession(Entities.Member member, Entities.Session session) => _uow.Members.GetById(member.id).sessions.Add(session);
+                public void RemoveSession(Entities.Member member, Entities.Session session) => _uow.Members.GetById(member.id).sessions.Remove(session);
+                public void ChangePassword(Entities.Member member, string currentPassword, string newPassword)
+                {
+                    if (currentPassword == member.pinCode)
+                    {
+                        Update(member, entity => { entity.pinCode = newPassword; });
+                    }
+                    else
+                        throw new Exception("Current password is invalid!");
+                }
+
                 public int Complete() => _uow.Complete();
             }
 
@@ -253,7 +266,42 @@ namespace DataManager
                     _uow.Sessions.Add(entity);
                 }
                 public IEnumerable<Entities.Session> GetSessions() => _uow.Sessions.GetAll();
+                public Entities.Session GetSessionById(int id) => _uow.Sessions.GetById(id);
                 public IEnumerable<Entities.Member> GetMembers(int id) => _uow.Sessions.GetById(id).members;
+                public void JoinSession(Member member, Session session)
+                {
+                    List<Member> membersList;
+
+                    if (session.members == null)
+                        membersList = new List<Member>();
+                    else
+                        membersList = session.members;
+
+                    if (membersList.Contains(member))
+                        throw new Exception("Member already in session!");
+                    else
+                    {
+                        if (membersList.Count + 1 > session.participants)
+                            throw new Exception("Session is full!");
+
+                        List<Member> newMembersList = membersList;
+                        newMembersList.Add(member);
+                        Update(session, entity => { entity.members = newMembersList; });
+                    }
+                }
+
+                public void LeaveSession(Member member, Session session)
+                {
+                    if (!session.members.Contains(member))
+                        throw new Exception("Member not in session!");
+                    else
+                    {
+                        List<Member> newMembersList = session.members;
+                        newMembersList.Remove(member);
+                        Update(session, entity => { entity.members = newMembersList; });
+                    }
+                }
+
                 public int Complete() => _uow.Complete();
             }
         }

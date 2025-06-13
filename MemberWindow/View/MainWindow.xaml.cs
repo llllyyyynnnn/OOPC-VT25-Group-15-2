@@ -60,9 +60,5 @@ namespace MemberWindow
         {
             SwitchPanels();
         }
-        private void ForgotPassword_MouseDown(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

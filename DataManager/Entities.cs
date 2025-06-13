@@ -16,8 +16,8 @@ namespace DataManager
             [Required] [MaxLength(24)] public required string phoneNumber { get; set; }
             [Required] public required DateTime birthDate { get; set; }
             [Required] [MaxLength(100)] public required string pinCode { get; set; }
-
             [Required] public required bool paymentStatus { get; set; } = false;
+            public List<Entities.Session> sessions { get; set; } = new List<Entities.Session>();
         }
 
         public class Coach
@@ -30,7 +30,7 @@ namespace DataManager
             [Required] public required DateTime birthDate { get; set; }
             [Required][MaxLength(100)] public required string pinCode { get; set; }
             public required string specialisation { get; set; }
-            public List<Entities.Session> sessions { get; set; } = null;
+            public List<Entities.Session> sessions { get; set; } = new List<Entities.Session>();
         }
 
         public class Session
@@ -45,7 +45,7 @@ namespace DataManager
             [Required][MaxLength(64)] public required string location { get; set; }
             [Required] public int Coachid { get; set; }
             [ForeignKey("Coachid")] public required Coach coach { get; set; }
-            public List<Entities.Member> members { get; set; }
+            public List<Entities.Member> members { get; set; } = new List<Entities.Member>();
         }
 
         public class Gear
