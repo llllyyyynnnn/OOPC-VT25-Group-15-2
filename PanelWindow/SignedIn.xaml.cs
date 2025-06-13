@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataManager;
+using static DataManager.Interfaces;
 using static DataManager.Logic;
 
 namespace PanelWindow
@@ -47,7 +48,26 @@ namespace PanelWindow
         private void RefreshMembersList() => membersList.ItemsSource = _memberController.GetMembers();
         private void RefreshGearList() => gearList.ItemsSource = _gearController.GetGear();
         private void RefreshGearLoansList() => gearLoansList.ItemsSource = _gearLoansController.GetGearLoans();
-        private void RefreshSessionList() => sessionsList.ItemsSource = _sessionsController.GetSessions();
+        private void RefreshSessionList()
+        {
+            sessionsList.ItemsSource = _sessionsController.GetSessions();
+
+            var upcomingSessions = _sessionsController.GetSessions()
+                .Where(session => session.date > DateTime.Today
+                                  && session.members != null
+                                  && session.members.Count > 0)
+                .ToList()
+                .Select(session => new
+                {
+                    date = session.date.ToString("yyyy-MM-dd"),
+                    time = session.time.ToString("HH:mm"),
+                    location = session.location,
+                    members = string.Join(", ", session.members.Select(m => $"{m.firstName} {m.lastName}"))
+                })
+                .ToList();
+
+            sessionsUpcomingList.ItemsSource = upcomingSessions;
+        }
 
         private void refreshSessionsButton_Click(object sender, RoutedEventArgs e) => RefreshSessionList();
         private void refreshGearButton_Click(object sender, RoutedEventArgs e) => RefreshGearList();

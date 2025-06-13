@@ -141,12 +141,19 @@ namespace PanelWindow
 
         private void addMember_Click(object sender, RoutedEventArgs e)
         {
-            Member member = _membersController.GetMemberById((int)sessionMembersList.SelectedValue);
+            try
+            {
+                Member member = _membersController.GetMemberById((int)sessionMembersList.SelectedValue);
 
-            membersInSession.Add(member);
-            membersNotInSession.Remove(member);
+                membersInSession.Add(member);
+                membersNotInSession.Remove(member);
 
-            RefreshLists();
+                RefreshLists();
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         private void removeMember_Click(object sender, RoutedEventArgs e)

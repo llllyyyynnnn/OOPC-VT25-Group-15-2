@@ -67,6 +67,12 @@
                         <DataGrid x:Name="sessionsList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
                     </DockPanel>
                 </TabItem>
+
+                <TabItem Header="Upcoming sessions">
+                    <DockPanel>
+                        <DataGrid x:Name="sessionsUpcomingList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                    </DockPanel>
+                </TabItem>
                 <TabItem Header="Account">
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
