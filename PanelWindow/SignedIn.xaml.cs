@@ -56,7 +56,6 @@ namespace PanelWindow
                 .Where(session => session.date > DateTime.Today
                                   && session.members != null
                                   && session.members.Count > 0)
-                .ToList()
                 .Select(session => new
                 {
                     date = session.date.ToString("yyyy-MM-dd"),

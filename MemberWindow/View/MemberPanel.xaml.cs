@@ -20,6 +20,15 @@ namespace MemberWindow
             InitializeComponent();
             Viewmodels.MemberPanel viewModel = new Viewmodels.MemberPanel();
             DataContext = viewModel;
+
+            viewModel.actionLogOut += OnLogOut;
+        }
+
+        private void OnLogOut()
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }
