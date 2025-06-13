@@ -48,9 +48,25 @@
                 <TabItem Header="Sessions">
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
-                            <Button x:Name="sampleButton2" Content="Sample"/>
+                            <Button Content="Join session" Command="{Binding cmdJoinSession}"/>
+                            <Button Content="Leave session" Command="{Binding cmdLeaveSession}"/>
                         </StackPanel>
-                        <DataGrid x:Name="sampleList2" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                        <StackPanel DockPanel.Dock="Top" Orientation="Vertical" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Height="Auto" Width="Auto">
+                            <DataGrid ItemsSource="{Binding sessions}" SelectedItem="{Binding selectedSession, Mode=TwoWay}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding id}" />
+                                    <DataGridTextColumn Header="Activity" Binding="{Binding activity}" />
+                                    <DataGridTextColumn Header="Description" Binding="{Binding description}" />
+                                    <DataGridTextColumn Header="Calories to burn" Binding="{Binding caloriesBurnt}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <Label Content="Session details" FontSize="24"/>
+                            <Label Content="{Binding sessionMaxParticipants}" />
+                            <Label Content="{Binding sessionCurrentParticipantCount}" />
+                            <Label Content="{Binding sessionCoach}" />
+                            <Label Content="{Binding sessionJoinedStatus}" />
+                        </StackPanel>
                     </DockPanel>
                 </TabItem>
 
@@ -58,17 +74,29 @@
                 <TabItem Header="Activity">
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
-                            <Button x:Name="sampleButton3" Content="Sample"/>
+                            <Button Content="Leave session"/>
                         </StackPanel>
-                        <DataGrid x:Name="sampleList3" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                        <StackPanel DockPanel.Dock="Top" Orientation="Vertical" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Height="Auto" Width="Auto">
+                            <DataGrid ItemsSource="{Binding sessions}" SelectedItem="{Binding selectedSession, Mode=TwoWay}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding id}" />
+                                    <DataGridTextColumn Header="Activity" Binding="{Binding activity}" />
+                                    <DataGridTextColumn Header="Description" Binding="{Binding description}" />
+                                    <DataGridTextColumn Header="Calories to burn" Binding="{Binding caloriesBurnt}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <Label Content="Session details" FontSize="24"/>
+                            <Label Content="{Binding sessionMaxParticipants}" />
+                            <Label Content="{Binding sessionCurrentParticipantCount}" />
+                            <Label Content="{Binding sessionCoach}" />
+                            <Label Content="{Binding sessionJoinStatus}" />
+                        </StackPanel>
                     </DockPanel>
                 </TabItem>
 
                 <TabItem Header="Members">
                     <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
-                            <Button Content="View"/>
-                        </StackPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Vertical" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Height="Auto" Width="Auto">
                             <DataGrid ItemsSource="{Binding members}" SelectedItem="{Binding selectedMember, Mode=TwoWay}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" SelectionMode="Single">
                                 <DataGrid.Columns>
