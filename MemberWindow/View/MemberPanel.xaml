@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MemberWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800" Style="{DynamicResource MainWindowStyle}">
+    
     <Grid Style="{StaticResource MainGridLayout}" HorizontalAlignment="Stretch" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -20,22 +21,21 @@
 
                         <StackPanel Width="Auto" Height="Auto">
                             <DockPanel>
-                                <StackPanel Height="Auto" Width="350">
+                                <StackPanel Height="Auto" Width="380">
                                     <Label Content="Information" FontSize="24"/>
-                                    <Label Content="Welcome back, FirstName LastName"/>
-                                    <Label Content="You have burnt X calories, keep up the good work!"/>
+                                    <Label Content="{Binding welcomeMember}"/>
                                 </StackPanel>
                                 <StackPanel Height="Auto" Width="Auto">
                                     <Image Source="/Images/Information.png" Height="128" Width="128"/>
                                 </StackPanel>
                             </DockPanel>
                             <DockPanel>
-                                <StackPanel Height="Auto" Width="350">
+                                <StackPanel Height="Auto" Width="380">
                                     <Label Content="Settings" FontSize="24"/>
-                                    <Label Content="User: email@sample.com"/>
-                                    <TextBox Text="Current Password"/>
-                                    <TextBox Text="New Password"/>
-                                    <Button Content="Save changes"/>
+                                    <Label Content="{Binding mailAddress}"/>
+                                    <TextBox Text="{Binding currentPinCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox Text="{Binding newPinCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button Content="Save changes" Command="{Binding cmdSaveNewPinCode}"/>
                                 </StackPanel>
                                 <StackPanel Height="Auto" Width="Auto">
                                     <Image Source="/Images/Config.png" Height="128" Width="128"/>
@@ -67,9 +67,21 @@
                 <TabItem Header="Members">
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
-                            <Button x:Name="sampleButton4" Content="Sample"/>
+                            <Button Content="View"/>
                         </StackPanel>
-                        <DataGrid x:Name="sampleList4" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                        <StackPanel DockPanel.Dock="Top" Orientation="Vertical" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Height="Auto" Width="Auto">
+                            <DataGrid ItemsSource="{Binding members}" SelectedItem="{Binding selectedMember, Mode=TwoWay}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding id}" />
+                                    <DataGridTextColumn Header="First Name" Binding="{Binding firstName}" />
+                                    <DataGridTextColumn Header="Last Name" Binding="{Binding lastName}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <Label Content="Contact details" FontSize="24"/>
+                            <Label Content="{Binding selectedMember.phoneNumber}" />
+                            <Label Content="{Binding selectedMember.mailAddress}" />
+                        </StackPanel>
                     </DockPanel>
                 </TabItem>
 

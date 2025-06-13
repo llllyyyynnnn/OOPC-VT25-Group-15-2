@@ -19,11 +19,10 @@ namespace MemberWindow
         public MainWindow()
         {
             InitializeComponent();
-            Viewmodels.Account viewModel = new Viewmodels.Account(new DataManager.Logic.UnitOfWork(Storage.ctx));
+            Viewmodels.Account viewModel = new Viewmodels.Account();
             DataContext = viewModel;
             viewModel.actionLoggedIn += OnLoggedIn;
             viewModel.actionSignedUp += OnSignedUp;
-
         }
 
         private void OnLoggedIn()

@@ -37,9 +37,9 @@ namespace MemberWindow.Viewmodels
         public DateTime birthDate { get => _birthDate; set { _birthDate = value; OnPropertyChanged(); } }
         public string pinCode { get => _pinCode; set { _pinCode = value; OnPropertyChanged(); } }
 
-        public Account(DataManager.Interfaces.IUnitOfWork uow)
+        public Account()
         {
-            _uow = uow;
+            _uow = new DataManager.Logic.UnitOfWork(Storage.ctx);
             _memberController = new DataManager.Logic.Controllers.Members(_uow);
 
             cmdLogIn = new RelayCommand(ValidateLogIn);

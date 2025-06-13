@@ -18,7 +18,7 @@ namespace MemberWindow
         public MemberPanel()
         {
             InitializeComponent();
-            Viewmodels.Account viewModel = new Viewmodels.Account(new DataManager.Logic.UnitOfWork(Storage.ctx));
+            Viewmodels.MemberPanel viewModel = new Viewmodels.MemberPanel();
             DataContext = viewModel;
         }
     }

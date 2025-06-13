@@ -9,7 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Config.png" />
+    <None Remove="Images\Information.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DataManager\DataManager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Config.png" />
+    <Resource Include="Images\Information.png" />
   </ItemGroup>
 
   <ItemGroup>
