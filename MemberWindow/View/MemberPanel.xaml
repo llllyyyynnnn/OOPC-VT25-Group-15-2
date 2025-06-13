@@ -13,11 +13,35 @@
         <DockPanel Grid.Row="1">
             <TabControl TabStripPlacement="Left" Width="Auto" Height="Auto">
                 <TabItem Header="Account">
-                    <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
-                            <Button x:Name="sampleButton" Content="Sample"/>
+                    <DockPanel VerticalAlignment="Top">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right"  Width="Auto">
+                            <Button x:Name="logOutButton" Content="Log out"/>
                         </StackPanel>
-                        <DataGrid x:Name="sampleList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+
+                        <StackPanel Width="Auto" Height="Auto">
+                            <DockPanel>
+                                <StackPanel Height="Auto" Width="350">
+                                    <Label Content="Information" FontSize="24"/>
+                                    <Label Content="Welcome back, FirstName LastName"/>
+                                    <Label Content="You have burnt X calories, keep up the good work!"/>
+                                </StackPanel>
+                                <StackPanel Height="Auto" Width="Auto">
+                                    <Image Source="/Images/Information.png" Height="128" Width="128"/>
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel>
+                                <StackPanel Height="Auto" Width="350">
+                                    <Label Content="Settings" FontSize="24"/>
+                                    <Label Content="User: email@sample.com"/>
+                                    <TextBox Text="Current Password"/>
+                                    <TextBox Text="New Password"/>
+                                    <Button Content="Save changes"/>
+                                </StackPanel>
+                                <StackPanel Height="Auto" Width="Auto">
+                                    <Image Source="/Images/Config.png" Height="128" Width="128"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </StackPanel>
                     </DockPanel>
                 </TabItem>
 
