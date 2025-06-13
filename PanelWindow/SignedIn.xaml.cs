@@ -31,11 +31,12 @@ namespace PanelWindow
             InitializeComponent();
             signedInLabel.Content = $"Currently signed in as: {Storage.signedInCoach.mailAddress}";
 
-            _memberController = new DataManager.Logic.Controllers.Members(Storage.uow);
-            _gearController = new DataManager.Logic.Controllers.Gears(Storage.uow);
-            _gearLoansController = new DataManager.Logic.Controllers.GearLoans(Storage.uow);
-            _sessionsController = new DataManager.Logic.Controllers.Sessions(Storage.uow);
-            _coachesController = new DataManager.Logic.Controllers.Coaches(Storage.uow);
+            // We could use a global unit of work for all of these, but if one command is started on member and not finished, and we then start another command in gear and that finshed before, then we run Complete before member and risk inconsistent data.
+            _memberController = new DataManager.Logic.Controllers.Members(new DataManager.Logic.UnitOfWork(Storage.ctx));
+            _gearController = new DataManager.Logic.Controllers.Gears(new DataManager.Logic.UnitOfWork(Storage.ctx));
+            _gearLoansController = new DataManager.Logic.Controllers.GearLoans(new DataManager.Logic.UnitOfWork(Storage.ctx));
+            _sessionsController = new DataManager.Logic.Controllers.Sessions(new DataManager.Logic.UnitOfWork(Storage.ctx));
+            _coachesController = new DataManager.Logic.Controllers.Coaches(new DataManager.Logic.UnitOfWork(Storage.ctx));
 
             RefreshMembersList();
             RefreshGearList();

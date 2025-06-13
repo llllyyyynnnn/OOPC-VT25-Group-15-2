@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace MemberWindow
 {
-    internal class Storage
+    public class Storage
     {
+        public static DataManager.Context ctx { get; private set; }
+        public static DataManager.Entities.Member signedInMember { get; set; }
+
+        public static void Initialize()
+        {
+            ctx = new DataManager.Context();
+        }
     }
 }

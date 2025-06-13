@@ -19,7 +19,7 @@ namespace PanelWindow
         public MainWindow()
         {
             InitializeComponent();
-            _controller = new DataManager.Logic.Controllers.Coaches(Storage.uow);
+            _controller = new DataManager.Logic.Controllers.Coaches(new DataManager.Logic.UnitOfWork(Storage.ctx));
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)

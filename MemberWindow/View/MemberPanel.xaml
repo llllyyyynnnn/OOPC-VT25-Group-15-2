@@ -1,0 +1,55 @@
+﻿<Window x:Class="MemberWindow.MemberPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MemberWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" Style="{DynamicResource MainWindowStyle}">
+    <Grid Style="{StaticResource MainGridLayout}" HorizontalAlignment="Stretch" Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="1">
+            <TabControl TabStripPlacement="Left" Width="Auto" Height="Auto">
+                <TabItem Header="Account">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
+                            <Button x:Name="sampleButton" Content="Sample"/>
+                        </StackPanel>
+                        <DataGrid x:Name="sampleList" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                    </DockPanel>
+                </TabItem>
+
+                <TabItem Header="Sessions">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
+                            <Button x:Name="sampleButton2" Content="Sample"/>
+                        </StackPanel>
+                        <DataGrid x:Name="sampleList2" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                    </DockPanel>
+                </TabItem>
+
+
+                <TabItem Header="Activity">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
+                            <Button x:Name="sampleButton3" Content="Sample"/>
+                        </StackPanel>
+                        <DataGrid x:Name="sampleList3" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                    </DockPanel>
+                </TabItem>
+
+                <TabItem Header="Members">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" Width="Auto">
+                            <Button x:Name="sampleButton4" Content="Sample"/>
+                        </StackPanel>
+                        <DataGrid x:Name="sampleList4" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" HeadersVisibility="Column" />
+                    </DockPanel>
+                </TabItem>
+
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>

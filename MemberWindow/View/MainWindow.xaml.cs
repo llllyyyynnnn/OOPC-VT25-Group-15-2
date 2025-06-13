@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.Xml;
+﻿using System.Runtime.CompilerServices;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,24 +14,29 @@ using Microsoft.Identity.Client.Extensions.Msal;
 
 namespace MemberWindow
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            Viewmodels.Account viewModel = new Viewmodels.Account(new DataManager.Logic.UnitOfWork(Storage.ctx));
+            DataContext = viewModel;
+            viewModel.actionLoggedIn += OnLoggedIn;
+            viewModel.actionSignedUp += OnSignedUp;
+
         }
 
-        private void LogIn_Click(object sender, RoutedEventArgs e)
+        private void OnLoggedIn()
         {
-
+            MemberPanel memberPanel = new MemberPanel();
+            memberPanel.Show();
+            this.Close();
         }
 
-        private void Register_Click(object sender, RoutedEventArgs e)
+        private void OnSignedUp()
         {
-            
+            SwitchPanels();
+            TitleLabel.Content = "Member - Successfully signed up!";
         }
 
         private void SwitchPanels()

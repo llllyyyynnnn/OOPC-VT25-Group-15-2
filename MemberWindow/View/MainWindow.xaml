@@ -14,21 +14,19 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="logInPanel" Grid.Row="1" Grid.Column="1" Width="500">
-            <TextBox x:Name="logInEmailTextBox"/>
-            <PasswordBox x:Name="logInPasswordTextBox"/>
-            <Button Content="Log in" Click="LogIn_Click">
-            </Button>
+            <TextBox x:Name="logInEmailTextBox" Text="{Binding mailAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="logInPassword" Text="{Binding pinCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Log in" Command="{Binding cmdLogIn}"/>
         </StackPanel>
 
         <StackPanel x:Name="registerPanel" Grid.Row="1" Grid.Column="1" Width="500" Visibility="Collapsed">
-            <TextBox x:Name="regEmailTextBox" Text="Email"/>
-            <TextBox x:Name="regFirstNameTextBox" Text ="First name"/>
-            <TextBox x:Name="regLastNameTextBox" Text="Last name"/>
-            <TextBox x:Name="regPhoneNumberTextBox" Text="Phone number"/>
-            <TextBox x:Name="regSpecialisation" Text="Specialisation"/>
-            <PasswordBox x:Name="regPasswordTextBox"/>
+            <TextBox x:Name="regEmailTextBox" Text="{Binding mailAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="regFirstNameTextBox" Text="{Binding firstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="regLastNameTextBox" Text="{Binding lastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="regPhoneNumberTextBox" Text="{Binding phoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="regPassword" Text="{Binding pinCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <DatePicker x:Name="regDateofBirth" Height="30"/>
-            <Button Content="Register" Click="Register_Click"/>
+            <Button Content="Register" Command="{Binding cmdSignUp}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Width="400">

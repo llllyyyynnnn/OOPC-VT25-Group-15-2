@@ -13,7 +13,7 @@ namespace MemberWindow
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            //Storage.Initialize();
+            Storage.Initialize();
 
             MainWindow main = new MainWindow();
             main.Show();

@@ -52,7 +52,7 @@ namespace DataManager
                     changes(entity);
                     _ctx.Members.Update(entity);
                 }
-
+                public Member Login(string email, string password) => _ctx.Members.FirstOrDefault(coach => coach.mailAddress == email && coach.pinCode == password);
                 public void Delete(Member entity) => _ctx.Members.Remove(entity);
             }
 
@@ -73,7 +73,6 @@ namespace DataManager
                     _ctx.Coaches.Update(entity);
                 }
                 public Coach Login(string email, string password) => _ctx.Coaches.FirstOrDefault(coach => coach.mailAddress == email && coach.pinCode == password);
-
                 public void Delete(Coach entity) => _ctx.Coaches.Remove(entity);
             }
             public class Sessions : Interfaces.IRepository<Entities.Session>
@@ -168,6 +167,7 @@ namespace DataManager
                 public void Update(Entities.Member entity, Action<Entities.Member> changes) => _uow.Members.Update(entity, changes);
                 public IEnumerable<Entities.Member> GetMembers() => _uow.Members.GetAll();
                 public Entities.Member GetMemberById(int id) => _uow.Members.GetById(id);
+                public Entities.Member Login(string email, string password) => _uow.Members.Login(email, password);
                 public int Complete() => _uow.Complete();
             }
 
