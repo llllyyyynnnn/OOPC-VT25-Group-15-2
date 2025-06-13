@@ -83,7 +83,7 @@ namespace DataManager
 
                 public Session GetById(int id) => _ctx.Sessions.Find(id);
 
-                public IEnumerable<Session> GetAll() => _ctx.Sessions.ToList();
+                public IEnumerable<Session> GetAll() => _ctx.Sessions.Include(s => s.members).Include(s => s.coach).ToList();
 
                 public void Add(Session entity) => _ctx.Sessions.Add(entity);
 
@@ -169,8 +169,6 @@ namespace DataManager
                 public IEnumerable<Entities.Member> GetMembers() => _uow.Members.GetAll();
                 public Entities.Member GetMemberById(int id) => _uow.Members.GetById(id);
                 public Entities.Member Login(string email, string password) => _uow.Members.Login(email, password);
-                public void AddSession(Entities.Member member, Entities.Session session) => _uow.Members.GetById(member.id).sessions.Add(session);
-                public void RemoveSession(Entities.Member member, Entities.Session session) => _uow.Members.GetById(member.id).sessions.Remove(session);
                 public void ChangePassword(Entities.Member member, string currentPassword, string newPassword)
                 {
                     if (currentPassword == member.pinCode)
@@ -270,24 +268,16 @@ namespace DataManager
                 public IEnumerable<Entities.Member> GetMembers(int id) => _uow.Sessions.GetById(id).members;
                 public void JoinSession(Member member, Session session)
                 {
-                    List<Member> membersList;
-
                     if (session.members == null)
-                        membersList = new List<Member>();
-                    else
-                        membersList = session.members;
+                        throw new Exception("Session is not fully loaded. Use eager loading.");
 
-                    if (membersList.Contains(member))
+                    if (session.members.Contains(member))
                         throw new Exception("Member already in session!");
-                    else
-                    {
-                        if (membersList.Count + 1 > session.participants)
-                            throw new Exception("Session is full!");
 
-                        List<Member> newMembersList = membersList;
-                        newMembersList.Add(member);
-                        Update(session, entity => { entity.members = newMembersList; });
-                    }
+                    if (session.members.Count >= session.participants)
+                        throw new Exception("Session is full!");
+
+                    session.members.Add(member);
                 }
 
                 public void LeaveSession(Member member, Session session)

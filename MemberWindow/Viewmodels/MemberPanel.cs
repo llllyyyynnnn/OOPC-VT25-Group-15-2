@@ -73,7 +73,7 @@ namespace MemberWindow.Viewmodels
                         int memberCount = 0;
                         bool inSession = false;
 
-                        if (_selectedSession.members != null && _selectedSession.members.Count > 0)
+                        if (_selectedSession.members != null)
                         {
                             memberCount = _selectedSession.members.Count;
                             inSession = selectedSession.members.Contains(Storage.signedInMember);
@@ -130,10 +130,10 @@ namespace MemberWindow.Viewmodels
             cmdLeaveSession = new RelayCommand(LeaveSession);
             cmdLogOut = new RelayCommand(LogOut);
 
-            RefreshLists();
-
             mailAddress = Storage.signedInMember.mailAddress;
             welcomeMember = $"Welcome back, {Storage.signedInMember.firstName} {Storage.signedInMember.lastName}";
+
+            RefreshLists();
         }
 
         private void LogOut(object obj)
@@ -147,9 +147,7 @@ namespace MemberWindow.Viewmodels
             try
             {
                 _sessionController.JoinSession(Storage.signedInMember, selectedSession);
-                _memberController.AddSession(Storage.signedInMember, selectedSession);
                 _sessionController.Complete();
-                _memberController.Complete();
 
                 RefreshLists();
             }
